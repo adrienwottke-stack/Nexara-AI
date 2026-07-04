@@ -1,5 +1,5 @@
 /* ============================================================
-   ADRIEN WOTTKE — NEXARA-AI · Cinematic Portfolio
+   ADRIEN WOTTKE - NEXARA-AI · Cinematic Portfolio
    Tiefschwarz · Smaragd · warmes Off-White · Filmkorn
    ============================================================ */
 
@@ -483,7 +483,7 @@ canvas {
 }
 
 /* ============================================================
-   PILLARS — angepinnt über „The Builder"
+   PILLARS - angepinnt über „The Builder"
    ============================================================ */
 .pillars {
   height: 420vh;
@@ -611,7 +611,7 @@ canvas {
 }
 
 /* ============================================================
-   WORK — über „The Creator"
+   WORK - über „The Creator"
    ============================================================ */
 .work {
   position: relative;
@@ -841,7 +841,7 @@ canvas {
 }
 
 /* ============================================================
-   FINALE — über „The Closer"
+   FINALE - über „The Closer"
    ============================================================ */
 .finale {
   height: 400vh;
@@ -892,7 +892,6 @@ canvas {
   max-width: 18ch;
   margin-top: 1.6rem;
   color: var(--cream);
-  text-shadow: 0 10px 60px rgba(0, 0, 0, 0.7);
 }
 
 .finale__word {
@@ -910,7 +909,6 @@ canvas {
 }
 .finale__word--accent span {
   color: var(--emerald-bright);
-  text-shadow: 0 0 50px rgba(16, 185, 129, 0.4);
 }
 
 .finale__hook {

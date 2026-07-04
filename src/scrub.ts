@@ -1,5 +1,5 @@
 /**
- * FrameSequence — scroll-scrubbte Canvas-Frame-Sequenz.
+ * FrameSequence - scroll-scrubbte Canvas-Frame-Sequenz.
  * Lädt WebP-Frames (manifest.json mit { count }), zeichnet cover-fit
  * und lerpt den Frame-Index für butterweiche Bewegung.
  * Ohne Frames läuft ein prozeduraler Fallback (Emerald-Orbit), damit die
@@ -89,7 +89,7 @@ export class FrameSequence {
     this.target = this.progress * (this.count - 1)
   }
 
-  /** Pro Tick aufrufen (gsap.ticker) — lerpt & zeichnet nur bei Frame-Wechsel. */
+  /** Pro Tick aufrufen (gsap.ticker) - lerpt & zeichnet nur bei Frame-Wechsel. */
   tick() {
     if (this.fallback) {
       this.drawFallback()

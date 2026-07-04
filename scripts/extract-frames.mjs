@@ -31,7 +31,7 @@ const run = (args) => execFileSync(ffmpeg, args, { stdio: ['ignore', 'inherit', 
 
 for (const seq of sequences) {
   if (!existsSync(seq.src)) {
-    console.log(`⏭  ${path.basename(seq.src)} fehlt — übersprungen`)
+    console.log(`⏭  ${path.basename(seq.src)} fehlt - übersprungen`)
     continue
   }
   rmSync(seq.out, { recursive: true, force: true })
@@ -53,7 +53,7 @@ for (const seq of sequences) {
 
 for (const loop of loops) {
   if (!existsSync(loop.src)) {
-    console.log(`⏭  ${path.basename(loop.src)} fehlt — übersprungen`)
+    console.log(`⏭  ${path.basename(loop.src)} fehlt - übersprungen`)
     continue
   }
   mkdirSync(path.dirname(loop.out), { recursive: true })
@@ -73,7 +73,7 @@ for (const loop of loops) {
       loop.out,
     ])
   } catch {
-    console.log('   ⚠ Palindrom fehlgeschlagen — normaler Loop als Fallback')
+    console.log('   ⚠ Palindrom fehlgeschlagen - normaler Loop als Fallback')
     run([
       '-i', loop.src,
       '-vf', 'scale=1600:-2:flags=lanczos',

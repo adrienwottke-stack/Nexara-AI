@@ -86,7 +86,7 @@ function buildPillars() {
     const item = document.createElement('article')
     item.className = 'pillar'
     item.innerHTML = `
-      <p class="pillar__num">${p.num} — ${p.title.charAt(0)}${p.title.slice(1).toLowerCase()}</p>
+      <p class="pillar__num">${p.num} - ${p.title.charAt(0)}${p.title.slice(1).toLowerCase()}</p>
       <h3 class="pillar__title"><span class="pillar__titleMask"><span class="pillar__titleInner">${p.title}</span></span></h3>
       <p class="pillar__text">${p.text}</p>`
     wrap.appendChild(item)
@@ -162,7 +162,7 @@ function attachVideo(el: HTMLVideoElement, src: string) {
 }
 
 /* ============================================================
-   Reduced Motion — statische, aber vollständige Experience
+   Reduced Motion - statische, aber vollständige Experience
    ============================================================ */
 
 if (reducedMotion) {
@@ -273,7 +273,7 @@ function init() {
   heroSeq.load('/frames/hero', setProgress).finally(() => revealSite())
 
   /* ============================================================
-     HERO-Timeline — Orbit-Scrub + Name buchstabenweise
+     HERO-Timeline - Orbit-Scrub + Name buchstabenweise
      ============================================================ */
   const heroState = { p: 0 }
   const heroTl = gsap.timeline({
@@ -309,7 +309,7 @@ function init() {
   }
 
   /* ============================================================
-     MARQUEE — Endlos + Scroll-Velocity-Kopplung
+     MARQUEE - Endlos + Scroll-Velocity-Kopplung
      ============================================================ */
   const track = $('#marqueeTrack')
   let marqueeX = 0
@@ -335,7 +335,7 @@ function init() {
   })
 
   /* ============================================================
-     STATS — Count-up beim Scroll
+     STATS - Count-up beim Scroll
      ============================================================ */
   $$('.stat__value').forEach((el) => {
     const target = Number(el.dataset.value)
@@ -365,7 +365,7 @@ function init() {
   })
 
   /* ============================================================
-     PILLARS — angepinnte Sequenz über „The Builder"
+     PILLARS - angepinnte Sequenz über „The Builder"
      ============================================================ */
   const pillarEls = $$('.pillar')
   const railSegs = $$('.pillars__railSeg span')
@@ -433,7 +433,7 @@ function init() {
   })
 
   /* ============================================================
-     WORK — Titel-Reveal + Karten + Video
+     WORK - Titel-Reveal + Karten + Video
      ============================================================ */
   $$('.work__titleLine').forEach((line) => {
     const inner = document.createElement('span')
@@ -469,7 +469,7 @@ function init() {
   })
 
   /* ============================================================
-     FINALE — „The Closer"-Scrub + CTAs
+     FINALE - „The Closer"-Scrub + CTAs
      ============================================================ */
   const finaleState = { p: 0 }
   const finaleTl = gsap.timeline({
