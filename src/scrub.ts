@@ -55,6 +55,8 @@ export class FrameSequence {
         img.onload = () => {
           this.frames[i] = img
           done++
+          // Erster geladener Frame sofort auf die Bühne — das Reveal muss nicht auf alle warten
+          if (done === 1) this.draw(i, true)
           onProgress?.(done / count)
           resolve()
         }
@@ -95,7 +97,7 @@ export class FrameSequence {
       this.drawFallback()
       return
     }
-    if (!this.loaded || this.count === 0) return
+    if (this.count === 0) return
     this.current += (this.target - this.current) * 0.16
     if (Math.abs(this.target - this.current) < 0.01) this.current = this.target
     const idx = Math.round(this.current)

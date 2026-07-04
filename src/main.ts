@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 
 import { FrameSequence } from './scrub'
-import { stats, pillars, useCases, marqueeItems } from './data'
+import { marqueeItems } from './data'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,68 +61,6 @@ function buildMarquee() {
   track.appendChild(makeHalf())
 }
 
-function buildStats() {
-  const grid = $('#statsGrid')
-  stats.forEach((s) => {
-    const stat = document.createElement('div')
-    stat.className = 'stat'
-    const value = document.createElement('div')
-    value.className = 'stat__value'
-    value.dataset.value = String(s.value)
-    value.dataset.prefix = 'prefix' in s ? (s as { prefix?: string }).prefix ?? '' : ''
-    value.dataset.suffix = s.suffix ?? ''
-    value.textContent = `${value.dataset.prefix}0${value.dataset.suffix}`
-    const label = document.createElement('div')
-    label.className = 'stat__label'
-    label.textContent = s.label
-    stat.append(value, label)
-    grid.appendChild(stat)
-  })
-}
-
-function buildPillars() {
-  const wrap = $('#pillarsItems')
-  pillars.forEach((p) => {
-    const item = document.createElement('article')
-    item.className = 'pillar'
-    item.innerHTML = `
-      <p class="pillar__num">${p.num} - ${p.title.charAt(0)}${p.title.slice(1).toLowerCase()}</p>
-      <h3 class="pillar__title"><span class="pillar__titleMask"><span class="pillar__titleInner">${p.title}</span></span></h3>
-      <p class="pillar__text">${p.text}</p>`
-    wrap.appendChild(item)
-  })
-  const rail = $('#pillarsRail')
-  pillars.forEach(() => {
-    const seg = document.createElement('div')
-    seg.className = 'pillars__railSeg'
-    seg.appendChild(document.createElement('span'))
-    rail.appendChild(seg)
-  })
-}
-
-function buildCards() {
-  const grid = $('#workGrid')
-  useCases.forEach((c, i) => {
-    const card = document.createElement('article')
-    card.className = `card card--${c.variant}`
-    card.innerHTML = `
-      <span class="card__index" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-      <div class="card__head">
-        <p class="card__sector">${c.sector}</p>
-        <span class="card__badge">Fiktiver Case</span>
-      </div>
-      <h3 class="card__result">${c.statement}</h3>
-      <dl class="card__case">
-        <div class="card__caseRow"><dt>Ausgangslage</dt><dd>${c.situation}</dd></div>
-        <div class="card__caseRow"><dt>Der Move</dt><dd>${c.move}</dd></div>
-        <div class="card__caseRow card__caseRow--goal"><dt>Gebaut für</dt><dd>${c.goal}</dd></div>
-      </dl>
-      <div class="card__foot"><span>${c.archetype}</span><span class="card__arrow">→</span></div>
-      <div class="card__sheen" aria-hidden="true"></div>`
-    grid.appendChild(card)
-  })
-}
-
 function buildFinaleWords() {
   const h = $('#finaleHeadline')
   const words = (h.textContent ?? '').trim().split(/\s+/)
@@ -140,9 +78,6 @@ function buildFinaleWords() {
 
 buildHeroLetters()
 buildMarquee()
-buildStats()
-buildPillars()
-buildCards()
 buildFinaleWords()
 
 /* ============================================================
@@ -270,7 +205,15 @@ function init() {
       .to('.nav', { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
   }
 
-  heroSeq.load('/frames/hero', setProgress).finally(() => revealSite())
+  // Reveal spätestens nach 3,5 s — restliche Frames laden im Hintergrund weiter
+  let revealed = false
+  const doReveal = () => {
+    if (revealed) return
+    revealed = true
+    revealSite()
+  }
+  heroSeq.load('/frames/hero', setProgress).finally(doReveal)
+  window.setTimeout(doReveal, 3500)
 
   /* ============================================================
      HERO-Timeline - Orbit-Scrub + Name buchstabenweise
@@ -381,10 +324,10 @@ function init() {
       end: 'bottom bottom',
       scrub: 0.5,
       onUpdate: (self) => {
-        const idx = Math.min(pillars.length - 1, Math.floor(self.progress * pillars.length))
-        ghost.textContent = pillars[idx].num
+        const idx = Math.min(pillarEls.length - 1, Math.floor(self.progress * pillarEls.length))
+        ghost.textContent = String(idx + 1).padStart(2, '0')
         railSegs.forEach((seg, i) => {
-          const fill = gsap.utils.clamp(0, 1, self.progress * pillars.length - i)
+          const fill = gsap.utils.clamp(0, 1, self.progress * pillarEls.length - i)
           seg.style.transform = `scaleX(${fill})`
         })
       },
@@ -394,7 +337,7 @@ function init() {
   // Anker: fixiert die Timeline-Dauer auf 10, damit die Slots exakt auf den Scroll mappen
   pillarsTl.to({}, { duration: 10 }, 0)
 
-  const SLOT = 10 / pillars.length
+  const SLOT = 10 / pillarEls.length
   pillarEls.forEach((el, i) => {
     const inner = el.querySelector('.pillar__titleInner')
     const text = el.querySelector('.pillar__text')
