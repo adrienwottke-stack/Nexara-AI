@@ -263,7 +263,7 @@ canvas {
    HERO
    ============================================================ */
 .hero {
-  height: 460vh;
+  height: 310vh;
   position: relative;
 }
 
@@ -486,7 +486,7 @@ canvas {
    PILLARS - angepinnt über „The Builder"
    ============================================================ */
 .pillars {
-  height: 420vh;
+  height: 290vh;
   position: relative;
 }
 
@@ -844,7 +844,7 @@ canvas {
    FINALE - über „The Closer"
    ============================================================ */
 .finale {
-  height: 400vh;
+  height: 275vh;
   position: relative;
 }
 
