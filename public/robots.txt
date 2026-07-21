@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /adrien.jpg
+Disallow: /linkedin.png
 
 Sitemap: https://nexara-ai.de/sitemap.xml
