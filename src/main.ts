@@ -5,9 +5,13 @@ import './style.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
+import { inject } from '@vercel/analytics'
 
 import { FrameSequence } from './scrub'
 import { marqueeItems } from './data'
+
+// Initialize Vercel Web Analytics
+inject()
 
 gsap.registerPlugin(ScrollTrigger)
 
