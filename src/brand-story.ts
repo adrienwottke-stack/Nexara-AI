@@ -182,7 +182,7 @@ export function initBrandStory(): { dispose(): void } {
         }
         const travel = gsap.to(track, {
           x: () => -distance(), ease: 'none', scrollTrigger: {
-            trigger: viewport, start: 'top top', end: () => `+=${distance()}`, pin: viewport,
+            trigger: viewport, start: 'top top', end: () => `+=${distance() * .6}`, pin: viewport,
             pinSpacing: true, scrub: .85, anticipatePin: 1, invalidateOnRefresh: true,
             onUpdate: self => updateStory(self.progress), onRefresh: self => updateStory(self.progress),
           },
@@ -192,7 +192,7 @@ export function initBrandStory(): { dispose(): void } {
           gsap.fromTo(item, { y: -drift / 2 }, { y: drift / 2, ease: 'none', scrollTrigger: { trigger: item, containerAnimation: travel, start: 'left right', end: 'right left', scrub: .8 } })
         })
         track.querySelectorAll<HTMLElement>('.brand-story__photo').forEach(photo => {
-          gsap.fromTo(photo, { clipPath: 'ellipse(0% 0% at 50% 50%)', scale: .96 }, { clipPath: 'ellipse(90% 90% at 50% 50%)', scale: 1, duration: 1.15, ease: 'power3.out', scrollTrigger: { trigger: photo, containerAnimation: travel, start: 'left 96%', toggleActions: 'play none none reverse' } })
+          gsap.fromTo(photo, { clipPath: 'ellipse(90% 90% at 50% 50%)', scale: .98 }, { clipPath: 'ellipse(90% 90% at 50% 50%)', scale: 1, duration: 1.15, ease: 'power3.out', scrollTrigger: { trigger: photo, containerAnimation: travel, start: 'left 96%', toggleActions: 'play none none reverse' } })
         })
         onLocal(viewport, 'focusin', event => {
           const target = event.target as HTMLElement
@@ -201,7 +201,7 @@ export function initBrandStory(): { dispose(): void } {
           const bounds = target.getBoundingClientRect()
           if (bounds.left >= 20 && bounds.right <= viewport.clientWidth - 20) return
           const offset = Math.min(distance(), Math.max(0, item.offsetLeft - viewport.clientWidth * .12))
-          travel.scrollTrigger.scroll(travel.scrollTrigger.start + offset)
+          travel.scrollTrigger.scroll(travel.scrollTrigger.start + offset * .6)
           ScrollTrigger.update()
           travel.scrollTrigger.getTween()?.progress(1)
         })
@@ -233,7 +233,7 @@ export function initBrandStory(): { dispose(): void } {
 
     if (worlds) {
       const worldItems = [...worlds.querySelectorAll<HTMLElement>('.brand-worlds__world')]
-      const entrance = gsap.timeline({ scrollTrigger: { trigger: worlds, start: 'top 90%', end: 'top 5%', scrub: .8 } })
+      const entrance = gsap.timeline({ scrollTrigger: { trigger: worlds, start: 'top 90%', once: true } })
       worldItems.forEach((world, index) => {
         const direction = index === 0 ? -1 : 1
         entrance.fromTo(world.querySelector('.brand-worlds__visual'), { xPercent: direction * (desktop ? 38 : 20), scale: 1.08, clipPath: 'ellipse(48% 78% at 50% 50%)' }, { xPercent: 0, scale: 1, clipPath: 'ellipse(90% 90% at 50% 50%)', ease: 'power2.out', duration: 1 }, 0)

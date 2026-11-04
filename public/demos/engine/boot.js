@@ -13,6 +13,8 @@ async function activate() {
   note.textContent = 'Die Originalbauteile werden vorbereitet. Beim ersten Start kann das kurz dauern.';
   try {
     const { startEngineDemo } = await import('./engine.js');
+    status.textContent = 'Geometrie und Beleuchtung vorbereiten';
+    note.textContent = 'Die Bauteile sind geladen. Die 3D-Ansicht wird aufgebaut …';
     await startEngineDemo();
     loaded = true;
     document.querySelector('#load-cover').hidden = true;

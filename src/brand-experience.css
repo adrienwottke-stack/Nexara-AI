@@ -51,7 +51,7 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
 .brand-header.is-dark::before, .brand-header:has(.brand-navigation[open])::before { background: linear-gradient(#27352be0, #27352b00); }
 .brand-header.is-dark .home-brand strong>span, .brand-header:has(.brand-navigation[open]) .home-brand strong>span { color: var(--lime); }
 .brand-hero { position: relative; height: 100svh; min-height: 590px; background: var(--paper); }
-.brand-motion .brand-hero { height: 235svh; min-height: 1300px; }
+.brand-motion .brand-hero { height: 160svh; min-height: 900px; }
 .cinematic-stage { position: sticky; top: 0; height: 100svh; overflow: clip; isolation: isolate; }
 #spatial-experience { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 #spatial-experience>canvas { display: block; width: 100%; height: 100%; }
@@ -89,7 +89,7 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
 .scene-unavailable .brand-ranger-toggle { display: none; }
 .brand-worlds-fallback { display: flex; justify-content: space-between; padding-block: 60px; }
 .brand-flight { position: relative; background: var(--ink); color: var(--paper); min-height: 850px; }
-.brand-motion .brand-flight { height: 190svh; min-height: 1250px; }
+.brand-motion .brand-flight { height: 100svh; min-height: 850px; }
 .brand-flight-stage { position: sticky; top: 0; height: 100svh; overflow: clip; isolation: isolate; }
 .brand-flight-heading { position: absolute; z-index: 0; top: 110px; width: 100%; padding: 0 var(--gutter); text-align: center; }
 .brand-flight-heading>p { font-size: 12px; color: #b9c2b0; margin-bottom: 24px; }
@@ -97,7 +97,7 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
 .brand-flight-heading h2 em { font-size: .94em; color: var(--lime); }
 .brand-project-target { position: absolute; z-index: 0; left: 50%; top: 58%; width: min(68vw, 850px); aspect-ratio: 1.6; transform: translate(-50%, -50%); overflow: clip; border: 1px solid #b7c1aa40; border-radius: 8px; background: #131d20; }
 .brand-project-target img { width: 100%; height: 100%; object-fit: cover; }
-.brand-motion .brand-project-target { opacity: 0; }
+.brand-motion .brand-project-target { opacity: 1; }
 .brand-flight-caption { position: absolute; z-index: 6; bottom: 24px; left: var(--gutter); right: var(--gutter); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
 .brand-flight-caption>p { font: 650 18px/1.3 var(--display); }
 .brand-flight-caption>p>span { color: #b9c2b0; font: 400 12px/1.6 var(--body); }
@@ -128,10 +128,10 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
 .engine-fallback { padding-block: 80px; }
 .engine-fallback p { margin: 25px 0; }
 .cinematic-closer { position: relative; height: 100svh; min-height: 650px; background: var(--forest); color: var(--paper); }
-.brand-motion .cinematic-closer { height: 155svh; min-height: 950px; }
+.brand-motion .cinematic-closer { height: 100svh; min-height: 650px; }
 .closer-stage { position: sticky; top: 0; height: 100svh; min-height: 650px; overflow: clip; isolation: isolate; }
 .closer-stage>.cinematic-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.closer-stage::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #08130899, transparent 80%), linear-gradient(0deg, #071207d9, transparent 80%); }
+.closer-stage::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #071207cf, #07120718 48%, transparent 70%); }
 .closer-copy { position: absolute; z-index: 2; left: var(--gutter); bottom: 115px; max-width: 900px; }
 .closer-copy>p { font-size: 14px; margin-bottom: 25px; }
 .closer-copy h2 { font: 700 clamp(65px, 10vw, 165px)/.88 var(--display); letter-spacing: -.055em; }
@@ -167,7 +167,7 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
   .brand-menu-links a { font-size: clamp(28px, 8.2vw, 48px); line-height: 1.03; padding: 6px 0; }
   .brand-menu-links .brand-menu-small { font-size: 12px; margin-top: 15px; }
   .brand-menu-foot { font-size: 10px; left: 22px; right: 22px; text-align: center; }
-  .brand-motion .brand-hero { height: 210svh; min-height: 1100px; }
+  .brand-motion .brand-hero { height: 150svh; min-height: 900px; }
   .brand-hero-fallback img { height: 170%; max-height: calc((100vw - 24px) * 3.914); top: 1.2%; left: calc(50% + .95svh); }
   .brand-hero-target { width: 77vw; height: 43svh; top: 45%; }
   .brand-hero-copy { left: 16px; bottom: 96px; max-width: 210px; padding: 10px 12px; }
@@ -184,7 +184,7 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
   .brand-textband--reverse { font-size: 11.5vw; }
   .brand-hero-sign { width: 62vw; height: 30svh; }
   .brand-flight { min-height: 690px; }
-  .brand-motion .brand-flight { height: 170svh; min-height: 1050px; }
+  .brand-motion .brand-flight { height: 100svh; min-height: 770px; }
   .brand-flight-heading { top: 105px; }
   .brand-flight-heading>p { font-size: 11px; margin-bottom: 18px; }
   .brand-flight-heading h2 { font-size: 9.5vw; line-height: .94; }
@@ -234,3 +234,10 @@ html.brand-menu-open .brand-home #nexara-assistant { visibility: hidden; pointer
   .brand-motion .brand-project-target { opacity: 1; }
   .brand-motion .cinematic-closer { height: 100svh; min-height: 650px; }
 }
+
+.brand-scroll-cue{position:absolute;z-index:7;left:var(--gutter);bottom:24px;display:flex;gap:24px;align-items:center;padding:12px 18px;background:var(--forest);color:var(--paper);border-radius:30px;font-size:12px;min-height:46px}.brand-scroll-cue span{color:var(--lime);font-size:20px}.closer-copy{max-width:560px;bottom:80px}.closer-copy h2{font-size:clamp(46px,6vw,90px)}.closer-copy>p{margin-bottom:15px}.closer-stage>.cinematic-video{object-position:65% center}.brand-motion .brand-flight{height:auto}.brand-flight-stage{position:relative;min-height:850px}.brand-flight-heading h2{font-size:clamp(36px,5vw,76px)}@media(max-width:650px){.brand-flight-stage{min-height:770px}.closer-copy h2{font-size:13vw}.closer-copy{bottom:95px}.closer-stage>.cinematic-video{object-position:60% center}.brand-scroll-cue{bottom:80px;left:22px;font-size:11px}.brand-hero-copy{bottom:145px}}
+
+.cinematic-utilities>.brand-scroll-cue{position:static;background:var(--forest);color:var(--paper);padding:0 0 0 16px}.cinematic-utilities>.brand-scroll-cue>span{border-color:#f4f3eb55}
+
+/* Give the film its own unobscured frame beside the contact copy. */
+.closer-stage::after{display:none}.closer-stage>.cinematic-video{inset:15% 3.5% auto auto;width:56%;height:70%;object-fit:contain;object-position:center;border-radius:12px;background:#17221b}.closer-copy{left:var(--gutter);top:50%;bottom:auto;transform:translateY(-50%);width:35%;max-width:500px}.closer-copy h2{font-size:clamp(42px,4.6vw,70px)}.closer-actions{gap:16px}.closer-actions .button{font-size:12px;padding:16px}.closer-copy>p{font-size:12px}@media(max-width:650px){.closer-stage>.cinematic-video{inset:100px 16px auto;width:calc(100% - 32px);height:38%;border-radius:8px}.closer-copy{left:22px;right:22px;width:auto;top:auto;bottom:90px;transform:none}.closer-copy h2{font-size:11vw}.closer-actions{margin-top:16px}.closer-copy>p{margin-bottom:12px}}

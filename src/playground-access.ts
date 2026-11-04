@@ -15,7 +15,7 @@ export function playgroundMarkup(): string {
           </div>
           <div class="playground-intro__copy">
             <p>Sechs Zylinder. Bewegte Bauteile. Und die Frage, wie das alles zusammenhängt.</p>
-            <p>Bring den Motor in Bewegung, verändere die Drehzahl und schau dir die Mechanik aus der Nähe an.</p>
+            <p>Halte das Gaspedal, hör die Drehzahl steigen und lass wieder los. Dreh den Motor und schau in die bewegte Mechanik.</p>
             <a class="playground-text-link playground-text-link--light" href="${MOTOR_WORKSHOP}" target="_blank" rel="noopener noreferrer">Ganze Motorwerkstatt öffnen <span aria-hidden="true">↗</span></a>
           </div>
         </header>
@@ -37,7 +37,7 @@ export function playgroundMarkup(): string {
           <dialog class="playground-player" data-playground-player data-lenis-prevent aria-labelledby="playground-player-title" aria-describedby="playground-player-status">
             <div class="playground-player__surface" data-playground-surface>
               <header class="playground-player__toolbar">
-                <div><h3 id="playground-player-title">Engine Playground</h3><p>Interaktive Mechanikdemo</p></div>
+                <div><h3 id="playground-player-title">Engine Playground</h3><p>Gaspedal · Drehzahl · Demo-Sound</p></div>
                 <div class="playground-player__actions">
                   <button class="playground-control" type="button" data-playground-expand>Größer spielen <span aria-hidden="true">↗</span></button>
                   <button class="playground-control" type="button" data-playground-fullscreen hidden>Vollbild <span aria-hidden="true">⤢</span></button>
@@ -54,7 +54,7 @@ export function playgroundMarkup(): string {
         </div>
 
         <div class="playground-below">
-          <p id="playground-demo-note">Die Mechanikdemo läuft in <strong>30-facher Zeitlupe und ohne Ton.</strong> Motorsound und Tuning findest du in der ganzen Motorwerkstatt. Dort startest du den Motor mit einem eigenen Klick.</p>
+          <p id="playground-demo-note">Die Mechanikdemo läuft in <strong>30-facher Zeitlupe – mit Gaspedal und optionalem Demo-Sound.</strong> Den eigentlichen Motorsimulator mit Sound und Tuning findest du in der ganzen Motorwerkstatt. Dort startest du den Motor mit einem eigenen Klick.</p>
           <a class="playground-text-link playground-text-link--light" href="${LOCAL_DEMO}" target="_blank" rel="noopener noreferrer">Mechanikdemo in eigener Ansicht <span aria-hidden="true">↗</span></a>
         </div>
         <noscript><p class="playground-no-script">Du kannst die Demo über „Mechanikdemo in eigener Ansicht“ öffnen. Die ganze Motorwerkstatt ist ebenfalls über den Link oben erreichbar.</p></noscript>

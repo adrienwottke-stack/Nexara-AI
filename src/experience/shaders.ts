@@ -84,6 +84,8 @@ uniform vec2 uViewport;
 uniform vec4 uRect;
 uniform float uRangerEnabled;
 uniform float uHelmetToneMapping;
+uniform float uTime;
+uniform vec2 uPointer;
 uniform float uRangerAmount;
 uniform float uReveal;
 varying vec2 vUv;
@@ -99,6 +101,12 @@ void main(){
   #ifdef TONE_MAPPING
     if(uHelmetToneMapping>0.5)helmetColour=toneMapping(helmetColour);
   #endif
+  // A moving softbox reflection and a low-frequency lime reveal edge.
+  float sweep=exp(-pow((vUv.x-(0.5+sin(uTime*0.65+uPointer.x)*0.32))/0.08,2.0));
+  float edge=smoothstep(0.12,0.27,density)*(1.0-smoothstep(0.30,0.55,density));
+  float pulse=0.6+0.4*sin(uTime*4.0);
+  helmetColour+=vec3(0.65,0.85,0.32)*sweep*0.13;
+  helmetColour+=vec3(0.43,0.75,0.025)*edge*pulse*0.28*uReveal;
   gl_FragColor=vec4(mix(portrait.rgb,helmetColour,clamp(helmet.a*reveal,0.0,1.0)),portrait.a);
   #include <colorspace_fragment>
 }

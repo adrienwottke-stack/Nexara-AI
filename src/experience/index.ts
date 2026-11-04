@@ -248,7 +248,7 @@ export async function createExperience(host: HTMLElement, options: ExperienceOpt
         uRect: { value: new THREE.Vector4(0, 0, width, height) },
         uRangerEnabled: { value: options.rangerEnabled ? 1 : 0 },
         uHelmetToneMapping: { value: rangerTexture ? 0 : 1 },
-        uRangerAmount: { value: 0 }, uReveal: { value: 1 },
+        uRangerAmount: { value: 0 }, uReveal: { value: 1 }, uTime: { value: 0 }, uPointer: { value: relaxedPointer },
       },
     }))
     const surface = new THREE.Mesh(geometry(new THREE.PlaneGeometry(1, 1)), surfaceMaterial)
@@ -343,6 +343,7 @@ export async function createExperience(host: HTMLElement, options: ExperienceOpt
       surfaceMaterial.uniforms.uViewport.value.set(width, height)
       surfaceMaterial.uniforms.uRect.value.set(rect.left, height - rect.top - rect.height, rect.width, rect.height)
       surfaceMaterial.uniforms.uRangerAmount.value = rangerAmount
+      surfaceMaterial.uniforms.uTime.value = reducedMotion.matches ? 0 : elapsed
       surfaceMaterial.uniforms.uReveal.value = reducedMotion.matches ? 0 : 1 - phase * 0.85
       surface.position.set(rect.left + rect.width / 2 - width / 2, height / 2 - rect.top - rect.height / 2, 0)
       surface.scale.set(rect.width, rect.height, 1)

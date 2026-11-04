@@ -1,5 +1,6 @@
 import { EngineThree } from 'engine-playground-original';
 import { copyConfig } from 'engine-playground-model';
+import { createPedalDrive } from './pedal';
 
 // Only the geometry and existing crank-slider rendering are reused here.
 // The native simulator, bridge, audio and thermodynamic models are not started.
@@ -40,6 +41,7 @@ export async function startEngineDemo() {
   let disposed = false;
   let component: 'engine' | 'piston' = 'engine';
   const slowdown = 30;
+  const drive = createPedalDrive(rpm, output);
 
   function updateControls() {
     demo.dataset.running = String(running);
@@ -61,21 +63,27 @@ export async function startEngineDemo() {
     if (!canRender()) return;
     const dt = Math.min(.05, Math.max(0, (now - lastAt) / 1000));
     lastAt = now;
-    state.rpm = running && component === 'engine' ? Number(rpm.value) : 0;
+    const feedback = drive.tick(dt, running && component === 'engine');
+    state.rpm = feedback.rpm;
+    state.pedal = state.actualThrottle = feedback.throttle;
+    state.ignition = running && component === 'engine';
+    demo.dataset.actualRpm = String(Math.round(state.rpm));
+    demo.dataset.throttle = String(feedback.throttle);
     // A selected rpm controls the real crank/piston geometry. Thirty-fold slow
     // motion keeps that mechanism legible; it is not measured engine telemetry.
     if (state.rpm) angle += dt * state.rpm * Math.PI * 2 / 60 / slowdown;
     engine.render(state, cfg, angle, now / 1000, angle);
     demo.dataset.angle = String(angle);
     demo.dataset.requestedRpm = rpm.value;
-    if (running && component === 'engine' || now < activityUntil) requestFrame();
+    if (running && component === 'engine' || state.rpm > 5 || now < activityUntil) requestFrame();
   }
   function poke() { activityUntil = performance.now() + 200; requestFrame(); }
   engine.controls.addEventListener('change', poke);
-  run.addEventListener('click', () => { running = !running; lastAt = performance.now(); updateControls(); poke(); });
-  rpm.addEventListener('input', () => { output.value = `${Number(rpm.value).toLocaleString('de-DE')} / min`; poke(); });
+  run.addEventListener('click', () => { running = !running; if (!running) drive.reset(); lastAt = performance.now(); updateControls(); poke(); });
+  rpm.addEventListener('input', poke);
   function show(next: 'engine' | 'piston') {
     component = next;
+    drive.reset();
     engine.setComponent(next);
     if (next === 'engine') { engine.setPresentation('cutaway'); engine.view('section'); }
     else engine.resetCamera();
@@ -103,6 +111,7 @@ export async function startEngineDemo() {
     resize.disconnect();
     document.removeEventListener('visibilitychange', visibilityChanged);
     engine.dispose();
+    drive.dispose();
   }
   window.addEventListener('pagehide', event => { if (!event.persisted) dispose(); });
   window.addEventListener('message', event => {

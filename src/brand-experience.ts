@@ -164,10 +164,16 @@ export function initBrandExperience() {
   }
   const filmObserver = new IntersectionObserver(entries => {
     for (const entry of entries) {
-      if (entry.isIntersecting && !reduced.matches) loadFilm(closerVideo)
+      if (entry.isIntersecting && !reduced.matches && !effectsPaused) {
+        loadFilm(closerVideo)
+        closerVideo.loop = true
+        freePlay.add(closerVideo)
+        filmLabel(closerVideo)
+        void closerVideo.play().catch(() => { freePlay.delete(closerVideo); filmLabel(closerVideo) })
+      }
       if (!entry.isIntersecting && freePlay.has(closerVideo)) { closerVideo.pause(); freePlay.delete(closerVideo); filmLabel(closerVideo) }
     }
-  }, { rootMargin: '100px' })
+  }, { threshold: .25 })
   filmObserver.observe(closer)
 
   function configureMotion() {
@@ -273,17 +279,15 @@ export function initBrandExperience() {
     const activeStage = flightVisible && !heroVisible ? flightStage : heroStage
     if (host.parentElement !== activeStage) activeStage.prepend(host)
     const active = !reduced.matches && !effectsPaused && !freePlay.has(heroVideo)
-    host.hidden = !active || (!heroVisible && !flightVisible)
-    scene?.update({ heroProgress: hp, flightProgress: fp, rangerAmount: rangerMode ? 1 : 0, visible: active && (heroVisible || flightVisible), heroTarget: heroVisible ? localRect(heroTarget, heroStage) : undefined, projectTarget: flightVisible && !heroVisible ? localRect(projectTarget, flightStage) : undefined })
+    host.hidden = !active || !heroVisible
+    scene?.update({ heroProgress: hp, flightProgress: fp, rangerAmount: rangerMode ? 1 : 0, visible: active && heroVisible, heroTarget: heroVisible ? localRect(heroTarget, heroStage) : undefined })
     const transition = reduced.matches ? 0 : clamp((hp - .12) / .6)
     gsap.set(copy, { opacity: 1 - clamp(hp / .3), y: -hp * 35 })
     gsap.set(bands, { opacity: clamp((hp - .16) / .3) })
     gsap.set(signature, { opacity: clamp((hp - .38) / .23) })
     signature.style.setProperty('--hero-sign-scale', String(.7 + transition * .3))
     bandTimelines.forEach(tween => { if (heroVisible && !effectsPaused && !navigation.open) tween.play(); else tween.pause() })
-    projectTarget.style.opacity = !sceneReady || reduced.matches || effectsPaused ? '1' : String(clamp((fp - .88) / .12))
-    desired.set(closerVideo, clamp(-closerRect.top / Math.max(1, closer.offsetHeight - h)))
-    seek(closerVideo)
+    projectTarget.style.opacity = '1'
     let dark = flightVisible && flightRect.top <= 94
     if (closerRect.top <= 94 && closerRect.bottom > 94) dark = true
     document.querySelectorAll<HTMLElement>('[data-header]').forEach(section => {
