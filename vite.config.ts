@@ -11,6 +11,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        websites: fileURLToPath(new URL('./websites.html', import.meta.url)),
+        verzeichnis: fileURLToPath(new URL('./verzeichnis.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         datenschutz: fileURLToPath(new URL('./datenschutz.html', import.meta.url)),
       },

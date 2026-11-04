@@ -1,0 +1,23 @@
+{
+  "builtAt": "2026-11-03T15:29:52.201Z",
+  "originalPackage": "0.4.4",
+  "originalComponents": [
+    "src/engine-three.ts",
+    "src/model.ts",
+    "src/engine-3d-model.ts",
+    "src/native-view.ts",
+    "src/piston-asset.ts"
+  ],
+  "localAdaptations": [
+    "Geometry-cache deadline extended from 2500ms to 12000ms in the standalone bundle only; original sources unchanged"
+  ],
+  "scope": "Original browser geometry with synthetic crank-angle control, no native process, audio or calibrated physics",
+  "originalAssets": [
+    "m52-piston-reference.glb",
+    "m52-piston-engine.glb",
+    "m52-piston-reference.json",
+    "m54-r11-geometry-cache.bin.gz",
+    "studio-env.bin",
+    "studio-env.json"
+  ]
+}

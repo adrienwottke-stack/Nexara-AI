@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,follow" />
+  <meta name="theme-color" content="#17252f" />
+  <title>Engine Playground · Interaktive Mechanikdemo</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./demo.css" />
+</head>
+<body>
+  <main class="demo" aria-labelledby="demo-title">
+    <header class="demo-header">
+      <div><h1 id="demo-title">Engine Playground</h1><p>Sechs Zylinder. Ein Blick ins Innere.</p></div>
+      <span class="engine-status" id="engine-status" role="status">Bereit zum Ausprobieren</span>
+    </header>
+    <section class="stage" aria-label="Drehbare Motoransicht">
+      <div id="engine-host" class="engine-host"></div>
+      <div class="load-cover" id="load-cover">
+        <svg class="engine-outline" viewBox="0 0 150 90" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M15 26h120v36H15zM20 17h110v9M8 70h134M28 62v8m22-8v8m22-8v8m22-8v8m22-8v8"/><path d="M28 34v19m22-19v19m22-19v19m22-19v19m22-19v19" stroke-width="8"/><path d="m28 53 11 17 11-17 11 17 11-17 11 17 11-17 11 17 11-17"/></g></svg>
+        <p>Kolben, Pleuel und Kurbelwelle<br />selbst in Bewegung bringen.</p>
+        <button id="load-engine" class="primary-button" type="button">Motor ausprobieren <span aria-hidden="true">↗</span></button>
+        <p class="load-note" id="load-note" role="status">Die 3D-Daten werden erst nach deinem Klick geladen.</p>
+      </div>
+      <p class="stage-hint" id="stage-hint" hidden>Ziehen zum Drehen · Scrollen oder Pinch zum Zoomen</p>
+    </section>
+    <section class="controls" aria-label="Motor bedienen">
+      <div class="drive-row">
+        <button id="run-engine" class="primary-button" type="button" disabled aria-pressed="false"><span class="run-symbol" aria-hidden="true">▶</span><span id="run-label">Motor starten</span></button>
+        <div class="rpm-control"><label for="engine-rpm">Drehzahlvorgabe <output id="rpm-value" for="engine-rpm">850 / min</output></label><input id="engine-rpm" type="range" min="500" max="6000" step="50" value="850" disabled aria-describedby="speed-note" /><div class="range-ends" aria-hidden="true"><span>500</span><span>6.000</span></div></div>
+      </div>
+      <div class="view-row"><div class="view-buttons" role="group" aria-label="Motoransicht"><button id="view-section" type="button" aria-pressed="true" disabled>Schnittansicht</button><button id="view-piston" type="button" aria-pressed="false" disabled>Ein Kolben im Detail</button></div><button id="reset-camera" class="reset-button" type="button" disabled>Ansicht zurücksetzen <span aria-hidden="true">↺</span></button></div>
+      <p class="demo-note" id="speed-note">Qualitative Mechanikdemo mit Originalkomponenten aus meinem Engine Playground. Bewegung 30× verlangsamt. Ohne Motorsound oder kalibrierte Motorphysik.</p>
+      <p class="keyboard-note">3D-Ansicht per Tastatur: Pfeiltasten drehen, + / − zoomen, Pos1 setzt die Kamera zurück.</p>
+    </section>
+  </main>
+  <noscript><p class="no-script">Für die interaktive 3D-Demo wird JavaScript benötigt.</p></noscript>
+  <script type="module" src="./boot.js"></script>
+</body>
+</html>
