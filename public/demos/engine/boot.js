@@ -7,6 +7,10 @@ let loaded = false;
 async function activate() {
   if (loading || loaded) return;
   loading = true;
+  const progress = document.querySelector('#load-progress');
+  progress.hidden = false;
+  const beganAt = performance.now();
+  const loadingTimer = setInterval(() => { button.textContent = '3D-Motor lädt · ' + Math.floor((performance.now() - beganAt) / 1000) + ' s'; }, 1000);
   button.disabled = true;
   button.textContent = '3D-Motor wird geladen …';
   status.textContent = '3D-Daten werden geladen';
@@ -19,6 +23,7 @@ async function activate() {
     loaded = true;
     document.querySelector('#load-cover').hidden = true;
   } catch (error) {
+    progress.hidden = true;
     console.error('Engine Playground demo:', error);
     status.textContent = '3D-Ansicht nicht verfügbar';
     button.disabled = false;
@@ -28,6 +33,7 @@ async function activate() {
     if (window.parent !== window) window.parent.postMessage({ type: 'nexara:engine:error', message: 'Die 3D-Ansicht konnte nicht gestartet werden.' }, location.origin);
   } finally {
     loading = false;
+    clearInterval(loadingTimer);
   }
 }
 button.addEventListener('click', activate);
