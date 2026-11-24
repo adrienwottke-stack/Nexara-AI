@@ -1,0 +1,143 @@
+{
+  "name": "Nexara Lead-Eingang (Website → HubSpot)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nexara-lead",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://nexara-ai.de,http://localhost:5173"
+        }
+      },
+      "id": "a1f0c0de-0001-4000-8000-000000000001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "nexara-lead"
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $json.body || {};\nconst clean = s => String(s ?? '').trim().slice(0, 2000);\nconst a = b.attribution || {};\nconst out = {\n  name: clean(b.name), unternehmen: clean(b.unternehmen), email: clean(b.email).toLowerCase(),\n  telefon: clean(b.telefon), branche: clean(b.branche), mitarbeiter: clean(b.mitarbeiter),\n  engpass: clean(b.engpass), rueckruf: clean(b.rueckruf) === 'ja' ? 'ja' : 'nein', seite: clean(b.seite),\n  gclid: clean(a.gclid), utm_source: clean(a.utm_source), utm_campaign: clean(a.utm_campaign), utm_term: clean(a.utm_term),\n};\nconst parts = out.name.split(/\\s+/);\nout.firstname = parts.shift() || '';\nout.lastname = parts.join(' ');\nout.valid = Boolean(out.name && out.unternehmen && out.engpass && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(out.email)) && !clean(b.website);\nout.kanal = (out.gclid || out.utm_source === 'google') ? 'Google Ads' : (out.utm_source === 'brief' ? 'Brief' : (out.utm_source === 'linkedin' ? 'LinkedIn' : 'Website organisch'));\nreturn [{ json: out }];"
+      },
+      "id": "a1f0c0de-0002-4000-8000-000000000002",
+      "name": "Prüfen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "c0nd-0001",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1f0c0de-0003-4000-8000-000000000003",
+      "name": "Gültig?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "a.wottke@nexara-ai.de",
+        "toEmail": "a.wottke@nexara-ai.de",
+        "subject": "={{ 'Neue Anfrage: ' + $json.unternehmen + ' (' + $json.branche + ')' }}",
+        "emailFormat": "text",
+        "text": "={{ 'Name: ' + $json.name + '\\nUnternehmen: ' + $json.unternehmen + '\\nE-Mail: ' + $json.email + '\\nTelefon: ' + $json.telefon + '\\nRückruf gewünscht: ' + $json.rueckruf + '\\nBranche: ' + $json.branche + '\\nMitarbeiter: ' + $json.mitarbeiter + '\\nSeite: ' + $json.seite + '\\nKanal: ' + $json.kanal + (($json.utm_campaign) ? ' / ' + $json.utm_campaign + ' / ' + $json.utm_term : '') + '\\n\\nAblauf:\\n' + $json.engpass + '\\n\\nZiel: Antwort innerhalb von 4 Arbeitsstunden.' }}",
+        "options": {}
+      },
+      "id": "a1f0c0de-0004-4000-8000-000000000004",
+      "name": "Mail an Adrien",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [660, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.hubapi.com/crm/v3/objects/contacts/batch/upsert",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ inputs: [{ idProperty: 'email', id: $('Prüfen').item.json.email, properties: { email: $('Prüfen').item.json.email, firstname: $('Prüfen').item.json.firstname, lastname: $('Prüfen').item.json.lastname, company: $('Prüfen').item.json.unternehmen, phone: $('Prüfen').item.json.telefon, kanal: $('Prüfen').item.json.kanal, gclid: $('Prüfen').item.json.gclid } }] }) }}",
+        "options": {}
+      },
+      "id": "a1f0c0de-0005-4000-8000-000000000005",
+      "name": "HubSpot Kontakt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [880, 200],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.hubapi.com/crm/v3/objects/deals",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ properties: { dealname: $('Prüfen').item.json.unternehmen + ' · Anfrage Website', pipeline: 'PIPELINE_ID', dealstage: 'STAGE_ID_LEAD', description: 'Branche: ' + $('Prüfen').item.json.branche + ' | Mitarbeiter: ' + $('Prüfen').item.json.mitarbeiter + ' | Rückruf: ' + $('Prüfen').item.json.rueckruf + ' | Ablauf: ' + $('Prüfen').item.json.engpass }, associations: ($json.results && $json.results[0]) ? [{ to: { id: $json.results[0].id }, types: [{ associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 3 }] }] : [] }) }}",
+        "options": {}
+      },
+      "id": "a1f0c0de-0006-4000-8000-000000000006",
+      "name": "HubSpot Deal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 200],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true } }}",
+        "options": { "responseCode": 200 }
+      },
+      "id": "a1f0c0de-0007-4000-8000-000000000007",
+      "name": "Antwort OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1320, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: false, error: 'Pflichtfelder fehlen' } }}",
+        "options": { "responseCode": 400 }
+      },
+      "id": "a1f0c0de-0008-4000-8000-000000000008",
+      "name": "Antwort ungültig",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [660, 420]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Prüfen", "type": "main", "index": 0 }]] },
+    "Prüfen": { "main": [[{ "node": "Gültig?", "type": "main", "index": 0 }]] },
+    "Gültig?": {
+      "main": [
+        [{ "node": "Mail an Adrien", "type": "main", "index": 0 }],
+        [{ "node": "Antwort ungültig", "type": "main", "index": 0 }]
+      ]
+    },
+    "Mail an Adrien": { "main": [[{ "node": "HubSpot Kontakt", "type": "main", "index": 0 }]] },
+    "HubSpot Kontakt": { "main": [[{ "node": "HubSpot Deal", "type": "main", "index": 0 }]] },
+    "HubSpot Deal": { "main": [[{ "node": "Antwort OK", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
