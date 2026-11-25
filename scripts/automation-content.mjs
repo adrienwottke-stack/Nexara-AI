@@ -1,12 +1,11 @@
 // Inhalte der Automatisierungs-Landingpages.
 // Nach jeder Änderung: `npm run pages` (erzeugt automatisierung/**/index.html neu).
-// Stellen mit PRÜFEN vor dem Livegang von Adrien bestätigen oder korrigieren.
 
 export const site = {
   origin: 'https://nexara-ai.de',
-  // PRÜFEN: eigenen Cal.com-Termintyp "Prozess-Erstgespräch (30 Min)" anlegen und Link hier eintragen.
-  // Weiterleitung nach Buchung: https://nexara-ai.de/automatisierung/danke/?typ=termin (Parameter-Weitergabe AUS).
-  cal: 'https://cal.com/adrien-wottke-hogs97',
+  // Cal.com-Termintyp "Prozess-Erstgespräch (30 Min)", Kurz-URL prozess-erstgespraech.
+  // Einstellungen: sprint/05-crm/crm-prozess.md, Abschnitt Kalender.
+  cal: 'https://cal.com/adrien-wottke-hogs97/prozess-erstgespraech',
   email: 'a.wottke@nexara-ai.de',
   linkedin: 'https://www.linkedin.com/in/adrien-wottke-03a4872b5/',
   place: 'Brösa bei Bautzen',
@@ -55,7 +54,7 @@ export const guarantee =
 export const founding =
   'Die ersten drei Unternehmen erhalten die Prozessanalyse kostenlos, wenn sie einer Fallstudie mit echten Vorher-Nachher-Zahlen zustimmen. Auf Wunsch anonym.'
 
-// PRÜFEN: Jeder Punkt muss stimmen. Lieber streichen als übertreiben.
+// Von Adrien am 25.11.2026 bestätigt. Neue Punkte nur, wenn sie belegbar sind.
 export const experience = [
   'Vertrieb und Kundenakquise im B2B-Umfeld. Ich weiß aus eigener Arbeit, wie Anfragen, Angebote und Nachfassen in der Praxis laufen.',
   'Selbst entwickelte Software für den Vertrieb, darunter ein Vertriebs-Cockpit mit Kontakten, Terminen und Teamauswertung und ein Werkzeug, das Gesprächsvorbereitungen mit Quellenangaben erstellt.',
@@ -82,9 +81,8 @@ export const faqCommon = [
     a: '30 Minuten für das Erstgespräch. Etwa einen halben Tag für die Analyse, mit Ihnen oder der Person, die den Ablauf kennt. In der Umsetzung kurze Abstimmungen und eine Einweisung. Den Großteil der Arbeit mache ich.',
   },
   {
-    // PRÜFEN: Stimmt mit deinem tatsächlichen Setup überein (AVV-Vorlage, Serverstandort)?
     q: 'Was passiert mit unseren Daten?',
-    a: 'Ich arbeite mit Auftragsverarbeitungsvertrag nach DSGVO, nur mit den Zugriffen, die für den Ablauf nötig sind, und wo möglich mit Servern in der EU. Welche Dienste beteiligt sind, steht vor dem Start schriftlich im Angebot.',
+    a: 'Ich arbeite mit Auftragsverarbeitungsvertrag nach DSGVO und nur mit den Zugriffen, die für den Ablauf nötig sind. Meine Automatisierungen laufen auf Servern in der EU. Welche weiteren Dienste beteiligt sind, zum Beispiel ein KI-Dienst, steht vor dem Start schriftlich im Angebot. Auf Wunsch läuft die Lösung in Ihrem eigenen Microsoft- oder Google-Konto.',
   },
   {
     q: 'Setzen Sie KI ein?',

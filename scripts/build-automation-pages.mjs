@@ -264,7 +264,6 @@ function about() {
         <h2 class="nx-h2" id="about-title">Wer das<br /><em>für Sie macht.</em></h2>
         <p class="nx-about__intro">Ich bin Adrien Wottke, 21. Ich studiere Maschinenbau an der TU Dresden und habe Nexara gegründet, weil ich in vielen Betrieben dasselbe sehe: gute Arbeit, aber zu viele Stunden im Büro, die keiner bezahlt.</p>
         <p class="nx-about__label">Was ich mitbringe</p>
-        <!-- PRÜFEN: Erfahrungsliste in scripts/automation-content.mjs -->
         <ul class="nx-about__list">${list}</ul>
         <div class="nx-honest">
           <p class="nx-honest__title">Was Sie auch wissen sollten</p>

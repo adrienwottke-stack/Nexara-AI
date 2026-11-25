@@ -46,6 +46,7 @@ Standardfelder nutzen: Deal-Betrag, Abschlussdatum, Verlustgrund, Branche, Telef
 Website-Formular → Webhook → Prüfung (Pflichtfelder, Honeypot) → HubSpot: Kontakt anlegen/aktualisieren → Deal in Phase "Lead" anlegen und verknüpfen → Mail an dich mit allen Angaben → Antwort an die Website (Weiterleitung auf Danke-Seite).
 
 Einrichtung:
+0. **HubSpot-Konto mit EU-Rechenzentrum anlegen** (bei der Registrierung bzw. in den Kontoeinstellungen "Datenhosting: EU" wählen; erkennbar an `app-eu1.hubspot.com`). Die Datenschutzerklärung beschreibt bereits das EU-Rechenzentrum. Landet das Konto in den USA, muss der Abschnitt "CRM-System HubSpot" angepasst werden.
 1. HubSpot: Einstellungen → Integrationen → **Private Apps** → App "n8n Lead-Eingang" mit Scopes `crm.objects.contacts.write`, `crm.objects.contacts.read`, `crm.objects.deals.write`, `crm.objects.deals.read`. Token kopieren. (Falls dein HubSpot-Konto Private Apps anders benennt: "Legacy Apps"/"Service-Schlüssel" in der aktuellen Oberfläche suchen.)
 2. HubSpot: Pipeline-ID und Phasen-ID für "Lead" nachschlagen (Einstellungen → Objekte → Deals → Pipelines; interne IDs). Im Workflow in den Platzhaltern `PIPELINE_ID` und `STAGE_ID_LEAD` eintragen.
 3. Eigene Kontakt-Eigenschaften `kanal` und `gclid` in HubSpot anlegen (interne Namen genau so), sonst lehnt die API sie ab.
@@ -56,7 +57,9 @@ Einrichtung:
 **Später (wenn Ads laufen):** zweiter n8n-Workflow, der wöchentlich Deals mit GCLID in Phase "Qualifiziert"/"Gewonnen" als Offline-Conversions an Google Ads meldet (oder CSV-Upload in Google Ads). Damit optimiert Google auf zahlende Kunden statt Formulare.
 
 ## Kalender (Cal.com)
-- Termintyp "Prozess-Erstgespräch (30 Min)", Puffer 15 Min, max. 3 pro Tag, Vorlauf min. 12 Std.
+- Termintyp **"Prozess-Erstgespräch"**, Dauer **30 Min**, Kurz-URL (Slug) genau **`prozess-erstgespraech`**. Die Website verlinkt bereits auf `https://cal.com/adrien-wottke-hogs97/prozess-erstgespraech`; solange der Termintyp fehlt, landen Besucher auf einer Fehlerseite.
+- Ort: Google Meet oder Telefon. Puffer 15 Min, max. 3 pro Tag, Vorlauf min. 12 Std.
+- Den alten Typ "18 min meeting" ausblenden oder behalten, er wird von den Automatisierungsseiten nicht mehr verlinkt.
 - Buchungsfragen: Firma, Branche, "Welcher Ablauf kostet Sie am meisten Zeit?"
 - Weiterleitung nach Buchung: `https://nexara-ai.de/automatisierung/danke/?typ=termin`. **Weitergabe von Buchungsparametern an die URL ausschalten** (keine Namen/E-Mails in URLs).
 - Optional: Cal.com-Webhook "Booking created" → n8n → HubSpot-Deal in Phase "Erstgespräch".
