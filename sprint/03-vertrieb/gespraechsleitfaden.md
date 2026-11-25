@@ -2,7 +2,7 @@
 
 **Ziel des Gesprächs:** Herausfinden, ob es einen Ablauf gibt, der sich wirtschaftlich lohnt, und wenn ja: Prozessanalyse vereinbaren.
 **Nicht das Ziel:** Technik erklären, Lösungen vorführen, Preise verhandeln.
-**Redeanteil:** Du ≤ 30 %. Notizen direkt in HubSpot (Deal-Notiz), Zahlen in die Felder "Std./Woche" und "Potenzial €/Jahr".
+**Redeanteil:** Du ≤ 30 %. Notizen direkt in die CRM-Tabelle (Spalte Notizen), Zahlen in "Betrag netto" und die Notiz.
 
 ## Vorbereitung (10 Min)
 - Website, Google-Profil (Bewertungen lesen!), Stellenanzeigen, LinkedIn des GF.
@@ -46,7 +46,7 @@
 **Termin direkt im Gespräch fixieren.** Kein "ich melde mich".
 
 ## Nach dem Gespräch (max. 20 Min, innerhalb 24 Std.)
-1. HubSpot: Stage, Felder, Notiz, nächste Aufgabe.
+1. CRM-Tabelle: Phase, Notiz, nächster Schritt mit Datum.
 2. **Kurz-Einschätzung per Mail** (Vorlage unten).
 
 ### Vorlage: Kurz-Einschätzung

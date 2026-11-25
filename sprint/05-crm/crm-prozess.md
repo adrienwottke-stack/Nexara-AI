@@ -1,65 +1,66 @@
-# CRM-Prozess (HubSpot Free)
+# CRM-Prozess (kostenlos: Google-Tabelle + Datenbank)
 
-Warum HubSpot Free: kennst du schon, kostenlos, Kontakte/Firmen/Deals/Aufgaben/Mail-Tracking/Meeting-Links, App fürs Handy. Einschränkungen von Free (Stand prüfen): nur **eine** Deal-Pipeline, begrenzte Automatisierung. Automatisierung übernimmt n8n.
+Kein HubSpot, keine Lizenzkosten. Drei Bausteine, die du schon hast oder die kostenlos sind:
 
-## Pipeline "Nexara Vertrieb" (Deal-Phasen)
+| Baustein | Rolle |
+|---|---|
+| **Cloudflare D1** (Datenbank des Workers) | Eingang und Sicherung: Jede Anfrage und jeder Verzeichnis-Eintrag wird hier gespeichert, auch wenn n8n mal nicht läuft. |
+| **n8n** (deine Instanz auf Google Cloud) | Briefträger: verschickt Mails über Gmail und schreibt neue Zeilen in die Tabelle. Workflow: `n8n-mailer-workflow.json`. |
+| **Google-Tabelle "Nexara Pipeline"** (Google Workspace) | Dein CRM: eine Zeile pro Deal, Phase per Auswahlliste, nächster Schritt mit Datum. |
+
+Ablauf: Website-Formular → Worker `/api/anfrage` → D1 → n8n → (1) Mail an dich, (2) neue Zeile im Blatt "Pipeline".
+Verzeichnis: Eintrag → D1 → Bestätigungsmail → nach Bestätigung Mail an dich mit Freigabe-Link + Zeile im Blatt "Verzeichnis".
+
+## 1. Google-Tabelle anlegen (15 Min)
+1. In Google Drive neue Tabelle **"Nexara Pipeline"**.
+2. Blatt **"Pipeline"**: Datei → Importieren → `tabelle-pipeline.csv` (Trennzeichen Semikolon) → "Aktuelles Tabellenblatt ersetzen". Kopfzeile fixieren.
+3. Blatt **"Verzeichnis"** anlegen und `tabelle-verzeichnis.csv` genauso importieren.
+4. Spalte **Phase** (Blatt Pipeline): Daten → Datenvalidierung → Drop-down mit:
+   `1 Lead`, `2 Qualifiziert`, `3 Erstgespräch`, `4 Prozessanalyse`, `5 Angebot`, `6 Verhandlung`, `7 Gewonnen`, `8 Verloren`
+5. Spalte **Wahrscheinlichkeit**: Formel in der ersten Datenzeile, nach unten ziehen:
+   `=IF(M2="";"";VLOOKUP(LEFT(M2;1)*1;{1\0,05;2\0,1;3\0,2;4\0,4;5\0,6;6\0,8;7\1;8\0};2;0))`
+   (Englische Funktionsnamen funktionieren in jeder Spracheinstellung; bei deutscher Einstellung Semikolon als Trenner.)
+6. Bedingte Formatierung: Zeilen mit "Datum nächster Schritt" ≤ TODAY() gelb einfärben. Das ist deine Aufgabenliste.
+7. Ein zusätzliches Blatt **"Übersicht"** mit
+   `=COUNTIF(Pipeline!M:M;"5*")` usw. je Phase und `=SUMPRODUCT(Pipeline!P2:P;Pipeline!Q2:Q)` für die gewichtete Pipeline.
+8. URL der Tabelle kopieren, sie kommt in den n8n-Workflow.
+
+## 2. Pipeline-Phasen
 
 | # | Phase | Eintritt (muss erfüllt sein) | Austritt / nächster Schritt | Wahrscheinlichkeit | Max. Verweildauer |
 |---|---|---|---|---|---|
-| 1 | **Lead** | Kontakt mit Namen, Firma und Kanal angelegt | Qualifizierung per Telefon/Mail | 5 % | 3 Tage |
+| 1 | **Lead** | Kontakt mit Namen, Firma und Kanal | Qualifizierung per Telefon/Mail | 5 % | 3 Tage |
 | 2 | **Qualifiziert** | Erfüllt die 6 Muss-Kriterien (Strategie Abschnitt 6), Lead-Score ≥ 4 | Erstgespräch terminiert | 10 % | 7 Tage |
-| 3 | **Erstgespräch** | Gespräch gebucht (Datum im Deal) | Gespräch geführt + Kurz-Einschätzung versendet | 20 % | 7 Tage |
+| 3 | **Erstgespräch** | Gespräch gebucht | Gespräch geführt + Kurz-Einschätzung versendet | 20 % | 7 Tage |
 | 4 | **Prozessanalyse** | Analyse vereinbart (bezahlt oder Gründungskunde) | Ergebnis vorgestellt | 40 % | 14 Tage |
 | 5 | **Angebot** | Umsetzungsangebot im Termin vorgestellt | Rückmeldung | 60 % | 10 Tage |
-| 6 | **Verhandlung** | Kunde will, offene Punkte (Umfang, Termin, Preis) | Beauftragung per Mail | 80 % | 10 Tage |
-| 7 | **Gewonnen** | Schriftliche Beauftragung | → Kundenphase "Umsetzung" | 100 % | |
+| 6 | **Verhandlung** | Kunde will, offene Punkte | Beauftragung per Mail | 80 % | 10 Tage |
+| 7 | **Gewonnen** | Schriftliche Beauftragung | Umsetzung, Betreuung, Empfehlung (Spalte Notizen) | 100 % | |
 | 8 | **Verloren** | Absage oder 20 Tage ohne Reaktion nach letztem Follow-up | Verlustgrund + Wiedervorlage 90 Tage | 0 % | |
 
-**Nach "Gewonnen"** (Free hat nur eine Pipeline): Firmen-Eigenschaft **Kundenphase** = Umsetzung → Betreuung → Empfehlung gegeben. Wenn du auf Starter gehst: zweite Pipeline "Kunden".
+Kontakte aus Netzwerk, Telefon und Briefen trägst du selbst als neue Zeile ein (Kanal nicht vergessen). Website-Anfragen kommen automatisch.
 
-**Bezahlte Analyse ohne Umsetzung** ist ein eigener gewonnener Deal (690 €). Die Umsetzung wird ein neuer Deal in Phase 5.
+## 3. Regeln
+1. **Keine Zeile ohne "Nächster Schritt" mit Datum.** Jeden Morgen nach Datum sortieren.
+2. **Freitag 30 Min Pipeline-Review:** Zeilen über der Max. Verweildauer → nachfassen oder auf "8 Verloren".
+3. **Verlustgrund immer ausfüllen** (Preis, Timing, kein Bedarf, kein Kontakt, Wettbewerb, selbst gemacht).
+4. **Kanal immer ausfüllen**, sonst ist keine Kanalbewertung möglich.
+5. Werbewiderspruch ("kein Interesse") in Notizen vermerken und nie wieder anrufen.
 
-## Eigenschaften (max. ~10 eigene, Free-Limit prüfen)
+## 4. n8n-Workflow einrichten (20 Min)
+1. n8n → Workflows → Import → `n8n-mailer-workflow.json`.
+2. Knoten **Webhook**: Credential "Header Auth" anlegen, Name `X-Nexara-Secret`, Wert: ein langer Zufallstext (z. B. in PowerShell: `[guid]::NewGuid().ToString() + [guid]::NewGuid().ToString()`). Den gleichen Wert später als Cloudflare-Secret `MAIL_WEBHOOK_SECRET` setzen.
+3. Knoten **Gmail senden**: Gmail-Credential mit deinem Workspace-Konto verbinden.
+4. Knoten **In Tabelle eintragen**: Google-Sheets-Credential verbinden, Platzhalter `HIER_URL_DER_TABELLE_NEXARA_PIPELINE` durch die Tabellen-URL ersetzen.
+5. Workflow aktivieren, **Production-URL** des Webhooks kopieren → Cloudflare-Secret `MAIL_WEBHOOK_URL` (siehe `../06-cloudflare-umzug.md`).
+6. Test nach dem Deploy: Formular auf `/automatisierung/` absenden → Mail bei dir + Zeile im Blatt "Pipeline".
 
-| Objekt | Eigenschaft | Typ | Werte |
-|---|---|---|---|
-| Kontakt | **Kanal** | Auswahl | Netzwerk, Bestandskunde, Telefon, Brief, Partner, Event, LinkedIn, Google Ads, Website organisch, Empfehlung |
-| Kontakt | **Grund für Kontakt** | Text | z. B. "Stellenanzeige WEG-Verwalter 11/2026" (Nachweis mutmaßliche Einwilligung) |
-| Kontakt | **Werbewiderspruch** | Ja/Nein | Ja = nie wieder anrufen/anschreiben |
-| Kontakt | **GCLID** | Text | aus Formular (nur mit Einwilligung) |
-| Firma | **Zielgruppe** | Auswahl | Hausverwaltung, Handwerk, Ingenieurbüro, Personaldienstleister, Andere |
-| Firma | **Kundenphase** | Auswahl | Interessent, Umsetzung, Betreuung, Empfehlung gegeben, Ehemalig |
-| Deal | **Lead-Score** | Zahl | Punkte laut Strategie |
-| Deal | **Engpass-Ablauf** | Text | in Kundenworten |
-| Deal | **Std. pro Woche (Kunde)** | Zahl | |
-| Deal | **Potenzial € pro Jahr** | Zahl | aus ROI-Rechnung |
+Falls n8n mal ausfällt: Nichts geht verloren. `npm run db:anfragen` zeigt die letzten 20 Anfragen aus der Datenbank, `npm run db:wartend` offene Verzeichnis-Einträge.
 
-Standardfelder nutzen: Deal-Betrag, Abschlussdatum, Verlustgrund, Branche, Telefon.
-
-## Regeln
-1. **Kein Deal ohne nächste Aufgabe mit Datum.** Jeden Morgen: Ansicht "Aufgaben heute fällig".
-2. **Jeden Freitag 30 Min Pipeline-Review:** Deals über Max. Verweildauer → nachfassen oder verlieren.
-3. **Verlustgrund immer ausfüllen** (Preis, Timing, kein Bedarf, kein Kontakt, Wettbewerb, selbst gemacht). Das ist die wichtigste Lerndatenquelle.
-4. **Kanal immer ausfüllen.** Sonst ist keine Kanalbewertung möglich.
-
-## Automatisierung mit n8n (Datei `n8n-lead-workflow.json`)
-Website-Formular → Webhook → Prüfung (Pflichtfelder, Honeypot) → HubSpot: Kontakt anlegen/aktualisieren → Deal in Phase "Lead" anlegen und verknüpfen → Mail an dich mit allen Angaben → Antwort an die Website (Weiterleitung auf Danke-Seite).
-
-Einrichtung:
-0. **HubSpot-Konto mit EU-Rechenzentrum anlegen** (bei der Registrierung bzw. in den Kontoeinstellungen "Datenhosting: EU" wählen; erkennbar an `app-eu1.hubspot.com`). Die Datenschutzerklärung beschreibt bereits das EU-Rechenzentrum. Landet das Konto in den USA, muss der Abschnitt "CRM-System HubSpot" angepasst werden.
-1. HubSpot: Einstellungen → Integrationen → **Private Apps** → App "n8n Lead-Eingang" mit Scopes `crm.objects.contacts.write`, `crm.objects.contacts.read`, `crm.objects.deals.write`, `crm.objects.deals.read`. Token kopieren. (Falls dein HubSpot-Konto Private Apps anders benennt: "Legacy Apps"/"Service-Schlüssel" in der aktuellen Oberfläche suchen.)
-2. HubSpot: Pipeline-ID und Phasen-ID für "Lead" nachschlagen (Einstellungen → Objekte → Deals → Pipelines; interne IDs). Im Workflow in den Platzhaltern `PIPELINE_ID` und `STAGE_ID_LEAD` eintragen.
-3. Eigene Kontakt-Eigenschaften `kanal` und `gclid` in HubSpot anlegen (interne Namen genau so), sonst lehnt die API sie ab.
-4. n8n: Workflow importieren, Credential "Header Auth" mit `Authorization: Bearer <Token>` anlegen und in beiden HTTP-Knoten wählen. SMTP-/Gmail-Credential für die Benachrichtigung wählen.
-5. Webhook-Knoten: Production-URL kopieren → `.env` → `VITE_LEAD_ENDPOINT=…` → neu bauen und deployen. Unter Webhook-Optionen "Allowed Origins" auf `https://nexara-ai.de` setzen.
-6. Testen: Formular auf der Live-Seite ausfüllen → Kontakt + Deal in HubSpot, Mail bei dir, Weiterleitung auf Danke-Seite.
-
-**Später (wenn Ads laufen):** zweiter n8n-Workflow, der wöchentlich Deals mit GCLID in Phase "Qualifiziert"/"Gewonnen" als Offline-Conversions an Google Ads meldet (oder CSV-Upload in Google Ads). Damit optimiert Google auf zahlende Kunden statt Formulare.
-
-## Kalender (Cal.com)
+## 5. Kalender (Cal.com)
 - Termintyp **"Prozess-Erstgespräch"**, Dauer **30 Min**, Kurz-URL (Slug) genau **`prozess-erstgespraech`**. Die Website verlinkt bereits auf `https://cal.com/adrien-wottke-hogs97/prozess-erstgespraech`; solange der Termintyp fehlt, landen Besucher auf einer Fehlerseite.
 - Ort: Google Meet oder Telefon. Puffer 15 Min, max. 3 pro Tag, Vorlauf min. 12 Std.
 - Den alten Typ "18 min meeting" ausblenden oder behalten, er wird von den Automatisierungsseiten nicht mehr verlinkt.
 - Buchungsfragen: Firma, Branche, "Welcher Ablauf kostet Sie am meisten Zeit?"
 - Weiterleitung nach Buchung: `https://nexara-ai.de/automatisierung/danke/?typ=termin`. **Weitergabe von Buchungsparametern an die URL ausschalten** (keine Namen/E-Mails in URLs).
-- Optional: Cal.com-Webhook "Booking created" → n8n → HubSpot-Deal in Phase "Erstgespräch".
+- Buchungen trägst du als Zeile mit Phase "3 Erstgespräch" ein (oder später: Cal.com-Webhook → n8n → Tabelle).

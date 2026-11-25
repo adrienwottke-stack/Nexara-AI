@@ -1,0 +1,104 @@
+{
+  "name": "Nexara Mailer (Website → Gmail + Google Sheets)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nexara-mailer",
+        "authentication": "headerAuth",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "b2f0c0de-0001-4000-8000-000000000001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "nexara-mailer"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "mail-1", "leftValue": "={{ $json.body.mail?.to }}", "rightValue": "", "operator": { "type": "string", "operation": "exists", "singleValue": true } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b2f0c0de-0002-4000-8000-000000000002",
+      "name": "Mail?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [240, 180]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.mail.to }}",
+        "subject": "={{ $json.body.mail.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body.mail.text }}",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Adrien Wottke · Nexara",
+          "replyTo": "={{ $json.body.mail.replyTo || 'a.wottke@nexara-ai.de' }}"
+        }
+      },
+      "id": "b2f0c0de-0003-4000-8000-000000000003",
+      "name": "Gmail senden",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [480, 160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "row-1", "leftValue": "={{ $json.body.row?.sheet }}", "rightValue": "", "operator": { "type": "string", "operation": "exists", "singleValue": true } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b2f0c0de-0004-4000-8000-000000000004",
+      "name": "Tabellenzeile?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [240, 420]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...($json.body.row.values || {}) } }];"
+      },
+      "id": "b2f0c0de-0005-4000-8000-000000000005",
+      "name": "Zeile vorbereiten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 420]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "value": "HIER_URL_DER_TABELLE_NEXARA_PIPELINE", "mode": "url" },
+        "sheetName": { "__rl": true, "value": "={{ $('Webhook').item.json.body.row.sheet }}", "mode": "name" },
+        "columns": { "mappingMode": "autoMapInputData", "value": {}, "matchingColumns": [], "schema": [] },
+        "options": {}
+      },
+      "id": "b2f0c0de-0006-4000-8000-000000000006",
+      "name": "In Tabelle eintragen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [720, 420]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Mail?", "type": "main", "index": 0 }, { "node": "Tabellenzeile?", "type": "main", "index": 0 }]] },
+    "Mail?": { "main": [[{ "node": "Gmail senden", "type": "main", "index": 0 }], []] },
+    "Tabellenzeile?": { "main": [[{ "node": "Zeile vorbereiten", "type": "main", "index": 0 }], []] },
+    "Zeile vorbereiten": { "main": [[{ "node": "In Tabelle eintragen", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

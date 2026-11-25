@@ -21,7 +21,7 @@ Reihenfolge nach erwarteter Geschwindigkeit bis zum ersten zahlenden Kunden (Ein
 | Kanal | Zulässig? | Bedingung |
 |---|---|---|
 | **Werbe-E-Mail an Unbekannte (auch B2B)** | **Nein** | § 7 Abs. 2 Nr. 2 UWG verlangt vorherige ausdrückliche Einwilligung. Gilt auch über Zweitdomains. Ausnahme Bestandskunden nur unter engen Bedingungen (§ 7 Abs. 3 UWG, eigene ähnliche Leistungen, Widerspruchshinweis). |
-| **Telefon an Unternehmen** | Ja, mit **mutmaßlicher Einwilligung** | Es braucht einen konkreten, sachlichen Grund, aus dem du annehmen darfst, dass der Betrieb Interesse hat (z. B. öffentliche Stellenanzeige für Büro/Verwaltung, Branchenbezug deines Angebots, vorheriger Brief). Ein allgemeines "alle Betriebe könnten das brauchen" reicht nicht sicher. Grund pro Kontakt in HubSpot notieren. Wer "kein Interesse" sagt: nie wieder anrufen, markieren. |
+| **Telefon an Unternehmen** | Ja, mit **mutmaßlicher Einwilligung** | Es braucht einen konkreten, sachlichen Grund, aus dem du annehmen darfst, dass der Betrieb Interesse hat (z. B. öffentliche Stellenanzeige für Büro/Verwaltung, Branchenbezug deines Angebots, vorheriger Brief). Ein allgemeines "alle Betriebe könnten das brauchen" reicht nicht sicher. Grund pro Kontakt in der Anrufliste notieren. Wer "kein Interesse" sagt: nie wieder anrufen, markieren. |
 | **Telefon an Verbraucher** | Nein | Nur mit ausdrücklicher Einwilligung. Kein Thema für uns. |
 | **Brief** | Ja | Zulässig, solange kein Widerspruch ("Keine Werbung") vorliegt. |
 | **LinkedIn** | Ja, persönlich | Einzelne, persönliche Nachrichten mit Bezug. Keine Automatisierungstools (Plattformregeln), keine Massennachrichten. |

@@ -14,22 +14,26 @@ Ziel: 10.000 € bezahlter Umsatz, erste zahlende Kunden in 30 Tagen, Aufbau wie
 | `02-launchplan-14-tage.md` | Tagesplan 25.11. bis 08.12. mit Zielen und Ads-Freigabekriterien |
 | `03-vertrieb/` | Gesprächsleitfaden, Telefonleitfaden, Prozessanalyse-Fragebogen, ROI-Methode, Angebotsvorlagen, Follow-up, Akquisekanäle (inkl. Rechtsrahmen), Nachrichten- und Briefvorlagen |
 | `04-google-ads/` | Strategie, Tracking, Import-Dateien für den Ads Editor (pausiert), Keyword-Recherche |
-| `05-crm/` | HubSpot-Pipeline, KPI-Definitionen, n8n-Workflow Formular → HubSpot, Datenschutz-Ergänzungen, Kontakt-Importvorlage |
+| `05-crm/` | CRM als Google-Tabelle (Vorlagen), KPI-Definitionen, n8n-Mailer-Workflow, Datenschutz-Stand, Kontakt-Importvorlage |
+| `06-cloudflare-umzug.md` | Schritt für Schritt von Vercel zu Cloudflare, inkl. DNS, Datenbank, Secrets, KI-Crawler-Freigabe |
+| `07-verzeichnis.md` | Verzeichnis „Aus der Region“: Konzept, ehrliche Erwartung an KI-Suche, Wachstumsplan 50 Einträge, Pflege |
 | `Nexara_Vertriebs-Toolkit.xlsx` | ROI-Rechner, KPI-Woche, Dashboard mit Zielkurve, Ads-Budget-Szenarien |
 
 ## Website (im Repo)
 - Seiten: `/automatisierung/` (Überblick), `/automatisierung/hausverwaltung/`, `/automatisierung/handwerk/`, `/automatisierung/ingenieurbuero/`, `/automatisierung/danke/`
 - Inhalte ändern: `scripts/automation-content.mjs`, dann `npm run pages` (läuft bei `npm run build` automatisch mit).
 - Gestaltung: `src/automation.css`, Verhalten (Umschalter, Rechner, Formular, Einwilligung): `src/automation.ts`.
-- Konfiguration: `.env` nach Vorlage `.env.example` (Formular-Webhook, Google-Ads-IDs).
+- Konfiguration: `.env` nach Vorlage `.env.example` (Google-Ads-IDs), Cloudflare-Secrets laut `06-cloudflare-umzug.md`.
+- Server-Teil (Formular, Verzeichnis, llms.txt): `worker/`, Datenbank-Schema: `migrations/`, Einstellungen: `wrangler.jsonc`. Lokal testen: `npm run db:migrate:local`, dann `npm run cf:dev`.
 
 ## Vor Livegang (Blocker)
 Erledigt am 25.11.2026: Erfahrungsliste bestätigt, FAQ-Datenschutzantwort an dein Setup angepasst (n8n auf Google Cloud EU), Preise/Garantie/Gründungskonditionen bestätigt, Cal.com-Link gesetzt, Datenschutzerklärung ergänzt, Impressum mit USt-IdNr. und aktuellen Gesetzesverweisen.
 
 Noch offen (nur du kannst das):
 - [ ] **Cal.com:** Termintyp "Prozess-Erstgespräch", 30 Min, Kurz-URL `prozess-erstgespraech`, Weiterleitung auf die Danke-Seite (`05-crm/crm-prozess.md`, Abschnitt Kalender). Bis dahin führt der Buchungsknopf auf eine Fehlerseite.
-- [ ] **HubSpot-Konto mit EU-Rechenzentrum** anlegen, dann n8n-Workflow importieren, `VITE_LEAD_ENDPOINT` setzen, Testanfrage durchspielen.
-- [ ] **Auftragsverarbeitungsverträge** der Dienste akzeptieren und **Vercel-Tarif** prüfen (`05-crm/datenschutz-ergaenzungen.md`).
+- [ ] **Cloudflare-Umzug** nach `06-cloudflare-umzug.md` (Konto, Datenbank, Secrets, Deploy, Nameserver, KI-Crawler erlauben).
+- [ ] **Google-Tabelle "Nexara Pipeline"** anlegen und **n8n-Mailer** importieren (`05-crm/crm-prozess.md`). Kein HubSpot nötig.
+- [ ] **Auftragsverarbeitungsverträge** der Dienste akzeptieren (`05-crm/datenschutz-ergaenzungen.md`).
 - [ ] AV-Vertrag-Vorlage für Kunden, bevor das erste Umsetzungsprojekt startet.
 
 ## Nicht automatisch getestet

@@ -9,7 +9,7 @@
 2. **Nur Phrase und Exact** mit klarer Dienstleister- oder Problemabsicht.
 3. **Eine Kampagne pro Zielgruppe** mit eigener Landingpage. Budget pro Zielgruppe steuerbar.
 4. **Manuelle Gebote** bis genug Conversions da sind (Smart Bidding braucht realistisch ≥ 15-30 Conversions/Monat; die haben wir nicht).
-5. **Optimiert wird auf qualifizierte Leads und Abschlüsse** (Offline-Import aus HubSpot), nicht auf Formularabsendungen.
+5. **Optimiert wird auf qualifizierte Leads und Abschlüsse** (Offline-Import aus der CRM-Tabelle), nicht auf Formularabsendungen.
 6. **Wöchentlich Suchbegriffe prüfen.** Jede irrelevante Suchanfrage wird Negativ-Keyword.
 
 ## Kampagnenstruktur
@@ -145,5 +145,5 @@ Test 1 über eine zweite responsive Suchanzeige mit anderen gepinnten Titeln (Ka
 1. Suchbegriffsbericht → Negativ-Keywords.
 2. Kosten, Klicks, Leads, qualifizierte Leads je Kampagne → `KPI-Woche`.
 3. Gebote nach Regeln oben.
-4. HubSpot: Leads mit GCLID qualifiziert/gewonnen? → Offline-Import (siehe `tracking.md`).
+4. CRM-Tabelle: Leads mit GCLID qualifiziert/gewonnen? → Offline-Import (siehe `tracking.md`).
 5. Abbruch-/Skalierungstabelle durchgehen, Entscheidung notieren.

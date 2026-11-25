@@ -8,7 +8,13 @@
     "build": "node scripts/build-automation-pages.mjs && vite build",
     "preview": "vite preview",
     "frames": "node scripts/extract-frames.mjs",
-    "pages": "node scripts/build-automation-pages.mjs"
+    "pages": "node scripts/build-automation-pages.mjs",
+    "cf:dev": "npm run build && wrangler dev --port 8787",
+    "cf:deploy": "npm run build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply nexara --local",
+    "db:migrate": "wrangler d1 migrations apply nexara --remote",
+    "db:anfragen": "wrangler d1 execute nexara --remote --command \"SELECT id, zeit, unternehmen, email, branche, weitergeleitet FROM anfragen ORDER BY id DESC LIMIT 20\"",
+    "db:wartend": "wrangler d1 execute nexara --remote --command \"SELECT id, name, gemeinde, status, erstellt_am FROM eintraege WHERE status IN ('unbestaetigt','wartend') ORDER BY id DESC\""
   },
   "dependencies": {
     "@fontsource-variable/bodoni-moda": "^5.3.0",
@@ -22,6 +28,7 @@
   "devDependencies": {
     "ffmpeg-static": "^5.2.0",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "wrangler": "^4.168.0"
   }
 }

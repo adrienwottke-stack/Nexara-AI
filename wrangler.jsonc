@@ -1,0 +1,35 @@
+// Cloudflare Worker für nexara-ai.de: statische Seiten aus dist/ + API + Verzeichnis aus D1.
+// Einrichtung: sprint/06-cloudflare-umzug.md
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nexara",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none",
+    "run_worker_first": ["/api/*", "/verzeichnis", "/verzeichnis/*", "/verzeichnis.html", "/llms.txt"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nexara",
+      // Nach `npx wrangler d1 create nexara --location=weur` die ausgegebene ID hier eintragen.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "SITE_ORIGIN": "https://nexara-ai.de",
+    "ADMIN_EMAIL": "a.wottke@nexara-ai.de"
+  },
+  // Geheimnisse (nicht hier eintragen, sondern `npx wrangler secret put NAME`):
+  // ADMIN_SECRET          zufälliger langer Text, signiert Freigabe-Links
+  // MAIL_WEBHOOK_URL      Produktions-URL des n8n-Workflows "Nexara Mailer"
+  // MAIL_WEBHOOK_SECRET   gleicher Wert wie im n8n-Header "X-Nexara-Secret"
+  // Täglich 3 Uhr UTC: Aufräumen nach Löschfristen (siehe worker/index.ts, scheduled)
+  "triggers": { "crons": ["0 3 * * *"] },
+  "observability": { "enabled": true }
+}

@@ -28,13 +28,13 @@ Erster zahlender Kunde: **Ziel Tag 30 (24.12.)**, realistisch eher Anfang Januar
 
 ### Tag 2 · Do 26.11. (4 Std.)
 - [ ] 60 Min: Landingpages lesen, **alle Stellen mit `PRÜFEN`** in `scripts/automation-content.mjs` korrigieren (Erfahrung, Projekte). Nur Wahres bleibt stehen. Dann `npm run pages`.
-- [ ] 60 Min: n8n-Workflow importieren (`05-crm/n8n-lead-workflow.json`), HubSpot-Token hinterlegen, Webhook-URL in `.env` als `VITE_LEAD_ENDPOINT`. Testanfrage schicken.
+- [ ] 60 Min: n8n-Workflow importieren (`05-crm/n8n-mailer-workflow.json`), Gmail und Google Sheets verbinden, Cloudflare-Secrets setzen (`06-cloudflare-umzug.md`). Testanfrage schicken.
 - [ ] 45 Min: Datenschutzerklärung ergänzen (`05-crm/datenschutz-ergaenzungen.md`). **Ohne diesen Schritt kein Livegang des Formulars.**
 - [ ] 15 Min: Deploy. Testbuchung + Testformular auf dem Handy.
 - [ ] 60 Min: **Bestandskunden** (alle bisherigen Website-Kunden) anrufen: "Was kostet euch im Büro gerade am meisten Zeit?" Ziel: 2 Erstgespräche.
 
 ### Tag 3 · Fr 27.11. (4 Std.)
-- [ ] 45 Min: HubSpot Pipeline + Eigenschaften nach `05-crm/crm-prozess.md`. Warme 50 importieren.
+- [ ] 45 Min: Google-Tabelle "Nexara Pipeline" nach `05-crm/crm-prozess.md` anlegen. Warme 50 importieren.
 - [ ] 2 Std: **Telefonblock Handwerk** (Liste `Nexara_Anrufliste_Handwerk_Bautzen.xlsx`), Leitfaden `03-vertrieb/telefon-leitfaden.md`. Ziel: 15 Entscheider erreicht, 2 Termine. Rechtlichen Hinweis im Leitfaden beachten.
 - [ ] 45 Min: Nachrichten 11-25 ans Netzwerk.
 - [ ] 30 Min: Follow-ups zu Tag 1.

@@ -3,7 +3,8 @@ import '@fontsource-variable/space-grotesk/wght.css'
 import './automation.css'
 
 // Konfiguration über .env (siehe .env.example). Ohne Werte: kein Tracking, Formular per Mail.
-const ENDPOINT = (import.meta.env.VITE_LEAD_ENDPOINT as string | undefined) || ''
+// Standard: eigener Cloudflare Worker (/api/anfrage). Überschreibbar per VITE_LEAD_ENDPOINT.
+const ENDPOINT = (import.meta.env.VITE_LEAD_ENDPOINT as string | undefined) || '/api/anfrage'
 const GADS_ID = (import.meta.env.VITE_GADS_ID as string | undefined) || ''
 const LABEL_LEAD = (import.meta.env.VITE_GADS_LABEL_LEAD as string | undefined) || ''
 const LABEL_BOOKING = (import.meta.env.VITE_GADS_LABEL_BOOKING as string | undefined) || ''

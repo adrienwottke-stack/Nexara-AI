@@ -1,7 +1,7 @@
 # Follow-up-Prozesse
 
 Grundregeln:
-- **Jeder Kontakt endet mit einem nächsten Schritt mit Datum.** In HubSpot als Aufgabe.
+- **Jeder Kontakt endet mit einem nächsten Schritt mit Datum.** In der CRM-Tabelle als "Nächster Schritt" mit Datum.
 - **Antwortzeit auf neue Anfragen: ≤ 4 Arbeitsstunden.** Leads werden kalt, nicht schlecht.
 - E-Mails nur an Kontakte, die angefragt, ein Gespräch geführt oder zugestimmt haben (kein Kalt-Mailing, § 7 UWG).
 - Kanalwechsel nach 2 Versuchen: Mail → Telefon → LinkedIn.
@@ -40,7 +40,7 @@ Grundregeln:
 | D+5 | Mail: eine Antwort auf einen Einwand aus dem Termin, schriftlich |
 | D+10 | Anruf: "Sollen wir den Start für KW [x] festhalten?" |
 | D+20 | "Abschlussmail": "Ich gehe davon aus, dass es gerade nicht passt, und schließe den Vorgang. Wenn sich etwas ändert, bin ich da." (Erzeugt oft Antworten.) |
-| Verloren | Verlustgrund in HubSpot. Wiedervorlage 90 Tage. |
+| Verloren | Verlustgrund in der CRM-Tabelle. Wiedervorlage 90 Tage. |
 
 ## 5. Nach Abschluss (Umsetzung, Betreuung, Empfehlung)
 | Wann | Was |

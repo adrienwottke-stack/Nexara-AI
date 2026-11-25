@@ -113,4 +113,4 @@ Zur Beauftragung genügt eine Antwort per E-Mail mit "Beauftragt".
 - [ ] Keine Einsparversprechen, nur Planwerte
 - [ ] Datenschutz/AVV und beteiligte Dienste benannt
 - [ ] Termin zur Vorstellung steht
-- [ ] Follow-up-Aufgabe in HubSpot (D+2)
+- [ ] Nächster Schritt mit Datum (D+2) in der CRM-Tabelle

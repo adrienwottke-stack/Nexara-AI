@@ -1,6 +1,6 @@
 # Telefonleitfaden (B2B, Entscheider)
 
-**Vor jedem Anruf:** Grund für mutmaßliches Interesse in HubSpot notieren (z. B. "Stellenanzeige WEG-Verwalter seit 09/2026", "Brief vom 30.11.", "Empfehlung von X"). Ohne konkreten Grund nicht anrufen.
+**Vor jedem Anruf:** Grund für mutmaßliches Interesse in der Anrufliste bzw. CRM-Tabelle notieren (z. B. "Stellenanzeige WEG-Verwalter seit 09/2026", "Brief vom 30.11.", "Empfehlung von X"). Ohne konkreten Grund nicht anrufen.
 **Ziel:** Termin für ein 30-Min-Erstgespräch. Nicht verkaufen, nicht erklären.
 
 ## 1. Zentrale / Empfang
@@ -27,14 +27,14 @@ Zuhören. Nachfragen: "Und wie viele sind das pro Woche?" "Wer macht das?"
 ## 5. Häufige Antworten
 | Antwort | Reaktion |
 |---|---|
-| "Kein Interesse." | "Verstehe. Darf ich fragen, ob das Thema gerade gelöst ist oder einfach nicht dran?" → Wenn weiterhin nein: "Danke für Ihre Zeit, ich melde mich nicht wieder." **In HubSpot: Werbewiderspruch, nicht mehr anrufen.** |
+| "Kein Interesse." | "Verstehe. Darf ich fragen, ob das Thema gerade gelöst ist oder einfach nicht dran?" → Wenn weiterhin nein: "Danke für Ihre Zeit, ich melde mich nicht wieder." **In der Anrufliste: Werbewiderspruch, nicht mehr anrufen.** |
 | "Schicken Sie Infos per Mail." | "Gern. Damit ich Ihnen nichts Allgemeines schicke: Welcher Ablauf wäre für Sie am interessantesten?" → Mail **mit seiner Zustimmung** senden, Rückruf-Termin vereinbaren. |
 | "Haben wir schon Software für." | "Super, dann geht es nur um die Lücken drumherum. Wo wird bei Ihnen noch etwas von einem Programm ins andere übertragen?" |
 | "Keine Zeit gerade." | "Wann ist es ruhiger? Ich trage mir den Termin ein und rufe genau dann an." |
 | "Was kostet das?" | "Das Erstgespräch ist kostenlos. Umsetzungen laufen zum Festpreis, typischerweise zwischen 1.500 und 6.000 €. Ob sich das bei Ihnen lohnt, rechnen wir vorher aus." |
 
 ## 6. Nach dem Anruf (1 Min)
-HubSpot: Ergebnis (erreicht/nicht erreicht/Termin/kein Interesse), Grund, Notiz, nächste Aufgabe mit Datum.
+CRM-Tabelle: Ergebnis (erreicht/nicht erreicht/Termin/kein Interesse), Grund, Notiz, nächste Aufgabe mit Datum.
 
 ## Mailbox (max. 1×)
 > "Guten Tag Frau/Herr [Name], Adrien Wottke von Nexara aus Bautzen, es geht um [Thema]. Ich versuche es [Tag] noch einmal, oder Sie erreichen mich unter [Nummer]. Danke."
