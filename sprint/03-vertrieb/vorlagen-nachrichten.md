@@ -40,9 +40,12 @@ Immer personalisieren: ein konkreter Satz, der zeigt, dass du dich mit dem Gegen
 >
 > Ich bin Adrien Wottke, Gründer von Nexara aus Bautzen. Ich schaue mir mit Verwaltungen an, welche dieser Schritte sich automatisieren lassen, und rechne vorher mit Ihren Zahlen aus, ob es sich lohnt. Die Lösung wird an Ihre bestehende Verwaltungssoftware angebunden, Ihre Mitarbeitenden behalten die Freigabe.
 >
-> Beiliegend sehen Sie an einem Beispiel, wie eine Schadensmeldung heute und danach aussehen kann.
+> **Probieren Sie es selbst aus:** Fotografieren Sie einen Schaden in einem Ihrer Objekte oder nehmen Sie eines meiner Beispielfotos. In unter einer Minute sehen Sie, wie daraus eine sortierte Meldung mit fertigem Handwerkerauftrag wird. Ohne Anmeldung, gespeichert wird nichts.
+> [QR-Code zu /automatisierung/ausprobieren/schadensmelder/?utm_source=brief&utm_medium=print&utm_campaign=hv-welle1]
 >
-> Für drei Verwaltungen mache ich die Prozessanalyse aktuell kostenlos, im Gegenzug für eine Fallstudie mit echten Zahlen. Ich rufe Sie in den nächsten Tagen kurz an. Wenn Sie schneller sind: [Telefon] oder [QR-Code zur Seite /automatisierung/hausverwaltung/].
+> Beiliegend finden Sie außerdem eine Strichliste für eine Woche: Jedes Mal, wenn jemand eine Meldung abtippt oder weiterleitet, ein Strich. Schicken Sie mir ein Foto davon, und ich rechne Ihnen aus, was das im Jahr kostet.
+>
+> Für drei Verwaltungen mache ich die Prozessanalyse aktuell kostenlos, im Gegenzug für eine Fallstudie mit echten Zahlen. Ich rufe Sie in den nächsten Tagen kurz an. Wenn Sie schneller sind: [Telefon].
 >
 > Viele Grüße
 > [Unterschrift]

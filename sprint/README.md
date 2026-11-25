@@ -17,6 +17,7 @@ Ziel: 10.000 € bezahlter Umsatz, erste zahlende Kunden in 30 Tagen, Aufbau wie
 | `05-crm/` | CRM als Google-Tabelle (Vorlagen), KPI-Definitionen, n8n-Mailer-Workflow, Datenschutz-Stand, Kontakt-Importvorlage |
 | `06-cloudflare-umzug.md` | Schritt für Schritt von Vercel zu Cloudflare, inkl. DNS, Datenbank, Secrets, KI-Crawler-Freigabe |
 | `07-verzeichnis.md` | Verzeichnis „Aus der Region“: Konzept, ehrliche Erwartung an KI-Suche, Wachstumsplan 50 Einträge, Pflege |
+| `08-gratis-tools/` | Interaktive Gratis-Tools (Schadensmelder, Sprach-Regiebericht u. a.): Spezifikation, Startplan ab 26.11., Leadliste Hausverwaltungen für Briefwelle 1 |
 | `Nexara_Vertriebs-Toolkit.xlsx` | ROI-Rechner, KPI-Woche, Dashboard mit Zielkurve, Ads-Budget-Szenarien |
 
 ## Website (im Repo)
@@ -35,6 +36,7 @@ Noch offen (nur du kannst das):
 - [ ] **Google-Tabelle "Nexara Pipeline"** anlegen und **n8n-Mailer** importieren (`05-crm/crm-prozess.md`). Kein HubSpot nötig.
 - [ ] **Auftragsverarbeitungsverträge** der Dienste akzeptieren (`05-crm/datenschutz-ergaenzungen.md`).
 - [ ] AV-Vertrag-Vorlage für Kunden, bevor das erste Umsetzungsprojekt startet.
+- [ ] **Gratis-Tools:** Anthropic-API-Key mit Ausgabenlimit, Turnstile-Widget, Datenschutz-Abschnitt für die Tools (`08-gratis-tools/README.md`).
 
 ## Nicht automatisch getestet
 - Einwilligungs-Hinweis und Conversion-Events (erst mit echter Google-Ads-ID testbar, siehe `04-google-ads/tracking.md`).
