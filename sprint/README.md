@@ -28,7 +28,7 @@ Ziel: 10.000 € bezahlter Umsatz, erste zahlende Kunden in 30 Tagen, Aufbau wie
 - Server-Teil (Formular, Verzeichnis, llms.txt): `worker/`, Datenbank-Schema: `migrations/`, Einstellungen: `wrangler.jsonc`. Lokal testen: `npm run db:migrate:local`, dann `npm run cf:dev` und `npm run cf:check`. Deploy: `npm run cf:deploy` (aus dem letzten Commit, nicht Committetes bleibt lokal).
 
 ## Vor Livegang (Blocker)
-Erledigt am 25.11.2026: Erfahrungsliste bestätigt, FAQ-Datenschutzantwort an dein Setup angepasst (n8n auf Google Cloud EU), Preise/Garantie/Gründungskonditionen bestätigt, Cal.com-Link gesetzt, Datenschutzerklärung ergänzt, Impressum mit USt-IdNr. und aktuellen Gesetzesverweisen.
+Erledigt am 25.11.2026: Erfahrungsliste bestätigt, FAQ-Datenschutzantwort an dein Setup angepasst (n8n auf eigenem Server in der EU, seit 26.11. Hetzner), Preise/Garantie/Gründungskonditionen bestätigt, Cal.com-Link gesetzt, Datenschutzerklärung ergänzt, Impressum mit USt-IdNr. und aktuellen Gesetzesverweisen.
 
 Noch offen (nur du kannst das):
 - [ ] **Cal.com:** Termintyp "Prozess-Erstgespräch", 30 Min, Kurz-URL `prozess-erstgespraech`, Weiterleitung auf die Danke-Seite (`05-crm/crm-prozess.md`, Abschnitt Kalender). Bis dahin führt der Buchungsknopf auf eine Fehlerseite.

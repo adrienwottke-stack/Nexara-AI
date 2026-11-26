@@ -2,7 +2,7 @@
 
 **Ist-Stand (geprüft am 25.11.2026):** nexara-ai.de zeigt per A-Eintrag auf Vercel (`216.198.79.1`). Das DNS liegt bei **Google Cloud DNS** (`ns-cloud-b1…b4.googledomains.com`), die Mails bei **Google Workspace**. DNSSEC ist aus (kein DS-Eintrag), `www.nexara-ai.de` gibt es bisher nicht.
 
-**Ziel-Stand:** DNS und Hosting bei Cloudflare (Free-Tarif, 0 €). Ein Worker liefert die Website, beantwortet die Formulare, rendert das Verzeichnis aus der Datenbank D1 und räumt nachts nach den Löschfristen auf. Mail bleibt bei Google Workspace, n8n bleibt auf Google Cloud.
+**Ziel-Stand:** DNS und Hosting bei Cloudflare (Free-Tarif, 0 €). Ein Worker liefert die Website, beantwortet die Formulare, rendert das Verzeichnis aus der Datenbank D1 und räumt nachts nach den Löschfristen auf. Mail bleibt bei Google Workspace, n8n läuft auf deinem Hetzner-Server.
 
 **Vorbereitet ist:** die Zonendatei mit allen DNS-Einträgen ([06-dns-zone-nexara-ai.de.txt](06-dns-zone-nexara-ai.de.txt)) und drei Befehle, die die Kommandozeilen-Arbeit übernehmen:
 

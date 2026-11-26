@@ -5,7 +5,7 @@ Kein HubSpot, keine Lizenzkosten. Drei Bausteine, die du schon hast oder die kos
 | Baustein | Rolle |
 |---|---|
 | **Cloudflare D1** (Datenbank des Workers) | Eingang und Sicherung: Jede Anfrage und jeder Verzeichnis-Eintrag wird hier gespeichert, auch wenn n8n mal nicht läuft. |
-| **n8n** (deine Instanz auf Google Cloud) | Briefträger: verschickt Mails über Gmail und schreibt neue Zeilen in die Tabelle. Workflow: `n8n-mailer-workflow.json`. |
+| **n8n** (deine Instanz auf dem Hetzner-Server) | Briefträger: verschickt Mails über Gmail und schreibt neue Zeilen in die Tabelle. Workflow: `n8n-mailer-workflow.json`. |
 | **Google-Tabelle "Nexara Pipeline"** (Google Workspace) | Dein CRM: eine Zeile pro Deal, Phase per Auswahlliste, nächster Schritt mit Datum. |
 
 Ablauf: Website-Formular → Worker `/api/anfrage` → D1 → n8n → (1) Mail an dich, (2) neue Zeile im Blatt "Pipeline".
