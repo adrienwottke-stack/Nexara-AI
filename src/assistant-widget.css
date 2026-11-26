@@ -1,0 +1,44 @@
+.nexara-assistant { position: fixed; z-index: 80; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); font-family: var(--body, 'Space Grotesk Variable', Arial, sans-serif); color: var(--ink, #171b12); text-align: left; color-scheme: light; }
+.nexara-assistant *, .nexara-assistant *::before, .nexara-assistant *::after { box-sizing: border-box; }
+.nexara-assistant button, .nexara-assistant a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.nexara-assistant button { font-family: inherit; cursor: pointer; }
+.nexara-assistant button:focus-visible, .nexara-assistant a:focus-visible { outline: 3px solid #698100; outline-offset: 3px; }
+.na-launcher { display: flex; align-items: center; justify-content: center; gap: 11px; min-height: 56px; padding: 13px 18px; color: var(--paper, #f7f8f2); background: var(--forest, #272e20); border: 1px solid #ffffff30; border-radius: 999px; box-shadow: 0 5px 20px #171b1224; font-size: 13px; font-weight: 550; transition: background .18s; }
+.na-launcher:hover { background: #3a462d; }
+.na-launcher > svg { width: 23px; height: 23px; flex-shrink: 0; fill: none; stroke: var(--lime, #d2ff00); stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+.na-launcher__demo { padding: 4px 7px; border: 1px solid #ffffff3d; border-radius: 999px; font-size: 9px; font-weight: 400; line-height: 1.3; color: #e2e8d9; }
+.na-panel { position: absolute; right: 0; bottom: 71px; display: flex; flex-direction: column; width: min(390px, calc(100vw - 40px)); max-height: min(650px, calc(100dvh - 115px)); overflow: hidden; border: 1px solid #bac3af; border-radius: 18px; background: var(--paper, #f7f8f2); box-shadow: 0 12px 45px #171b1233; }
+.na-panel[hidden] { display: none !important; }
+.na-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 15px 16px 22px; flex-shrink: 0; color: var(--paper, #f7f8f2); background: var(--forest, #272e20); }
+.na-header h2 { margin: 0; font: 650 20px/1.3 var(--display, Arial, sans-serif); letter-spacing: -.035em; color: inherit; }
+.na-header p { margin: 5px 0 0; font-size: 10px; line-height: 1.5; color: #d9e0cd; }
+.na-close { width: 44px; height: 44px; border: 1px solid #ffffff2b; border-radius: 50%; color: var(--paper, #f7f8f2); background: transparent; flex-shrink: 0; font-size: 26px; line-height: 1; }
+.na-close:hover { background: #ffffff12; }
+.na-log { min-height: 90px; overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 20px 17px 8px; list-style: none; flex: 1 1 auto; scrollbar-width: thin; scrollbar-color: #adb99c transparent; }
+.na-message { margin: 0 0 14px; padding: 13px 14px; border-radius: 11px; max-width: 100%; }
+.na-message__speaker { display: block; margin-bottom: 7px; font-size: 9px; font-weight: 600; line-height: 1.4; color: #59634e; }
+.na-message > p { margin: 0; font-size: 13px; line-height: 1.75; letter-spacing: 0; color: var(--ink, #171b12); }
+.na-message--answer { margin-right: 17px; background: #e9ede1; border-top-left-radius: 2px; }
+.na-message--question { margin-left: 26px; background: #fff; border: 1px solid #d7dbce; border-top-right-radius: 2px; }
+.na-message__link { min-height: 44px; display: inline-flex; align-items: center; padding-top: 10px; font-size: 12px; line-height: 1.5; color: var(--forest, #272e20); text-decoration: underline; text-underline-offset: 4px; font-weight: 600; }
+.na-topics { display: flex; flex-wrap: wrap; gap: 7px; padding: 14px 17px; border-top: 1px solid #d7dbce; flex-shrink: 0; }
+.na-topic { min-height: 44px; padding: 9px 12px; border: 1px solid #c4ceb7; border-radius: 6px; background: transparent; color: var(--forest, #272e20); font-size: 11px; line-height: 1.3; transition: background .18s; }
+.na-topic:hover { background: #e3ebd6; border-color: #97a781; }
+.na-footer { display: flex; align-items: center; gap: 12px; padding: 5px 17px 13px; flex-shrink: 0; }
+.na-footer p { margin: 0; color: #62685c; font-size: 9px; line-height: 1.65; }
+.na-reset { align-self: flex-start; min-height: 44px; padding: 0 3px; flex-shrink: 0; border: 0; background: transparent; color: #4d5843; font-size: 10px; line-height: 1.3; text-decoration: underline; text-underline-offset: 3px; }
+@media(max-width: 600px) {
+  .nexara-assistant { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); }
+  .na-panel { width: calc(100vw - 32px); bottom: 69px; max-height: calc(100dvh - 108px); border-radius: 15px; }
+  .na-launcher { min-height: 54px; padding: 12px 16px; font-size: 12px; }
+  .na-header { padding: 13px 12px 13px 18px; }
+  .na-header h2 { font-size: 20px; }
+  .na-log { padding: 17px 13px 4px; }
+  .na-message { padding: 12px; }
+  .na-message > p { font-size: 13px; }
+  .na-topics { padding: 12px 13px; gap: 6px; }
+  .na-topic { font-size: 10px; padding: 9px 10px; }
+  .na-footer { padding: 4px 13px 11px; }
+}
+@media(max-height: 530px) { .na-header { padding-top: 8px; padding-bottom: 8px; } .na-topics { padding-top: 7px; padding-bottom: 7px; } .na-footer { display: none; } .na-panel { max-height: calc(100dvh - 97px); bottom: 66px; } }
+@media(prefers-reduced-motion: reduce) { .na-launcher, .na-topic { transition: none; } }

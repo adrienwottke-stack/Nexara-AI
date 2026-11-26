@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        websites: fileURLToPath(new URL('./websites.html', import.meta.url)),
         automatisierung: fileURLToPath(new URL('./automatisierung/index.html', import.meta.url)),
         automatisierungHausverwaltung: fileURLToPath(new URL('./automatisierung/hausverwaltung/index.html', import.meta.url)),
         automatisierungHandwerk: fileURLToPath(new URL('./automatisierung/handwerk/index.html', import.meta.url)),
