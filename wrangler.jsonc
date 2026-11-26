@@ -1,5 +1,5 @@
 // Cloudflare Worker für nexara-ai.de: statische Seiten aus dist/ + API + Verzeichnis aus D1.
-// Einrichtung: sprint/06-cloudflare-umzug.md
+// Einrichtung: npm run cf:setup (Anleitung: sprint/06-cloudflare-umzug.md)
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nexara",
@@ -16,7 +16,7 @@
     {
       "binding": "DB",
       "database_name": "nexara",
-      // Nach `npx wrangler d1 create nexara --location=weur` die ausgegebene ID hier eintragen.
+      // Wird von `npm run cf:setup` eingetragen.
       "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "migrations"
     }
@@ -25,7 +25,7 @@
     "SITE_ORIGIN": "https://nexara-ai.de",
     "ADMIN_EMAIL": "a.wottke@nexara-ai.de"
   },
-  // Geheimnisse (nicht hier eintragen, sondern `npx wrangler secret put NAME`):
+  // Geheimnisse (nicht hier eintragen; `npm run cf:setup` erzeugt bzw. fragt sie ab):
   // ADMIN_SECRET          zufälliger langer Text, signiert Freigabe-Links
   // MAIL_WEBHOOK_URL      Produktions-URL des n8n-Workflows "Nexara Mailer"
   // MAIL_WEBHOOK_SECRET   gleicher Wert wie im n8n-Header "X-Nexara-Secret"

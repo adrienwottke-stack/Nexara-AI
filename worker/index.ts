@@ -66,6 +66,8 @@ export default {
     ctx.waitUntil(cleanup(env))
   },
   async fetch(req: Request, env: Env, ctx: Ctx): Promise<Response> {
+    const url = new URL(req.url)
+    const canonicalHost = new URL(env.SITE_ORIGIN).hostname
     let res: Response
     try {
       res = (await route(req, env, ctx)) ?? (await env.ASSETS.fetch(req))
@@ -75,6 +77,9 @@ export default {
     }
     const out = new Response(res.body, res)
     for (const [k, v] of Object.entries(SECURITY_HEADERS)) if (!out.headers.has(k)) out.headers.set(k, v)
+    // Testadressen (workers.dev, Vorschau, localhost) sollen nicht als Doppelung in Google landen.
+    // Statische Seiten laufen am Worker vorbei, für sie gilt die Regel in public/_headers.
+    if (url.hostname !== canonicalHost) out.headers.set('x-robots-tag', 'noindex, nofollow')
     return out
   },
 }

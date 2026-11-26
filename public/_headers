@@ -9,3 +9,7 @@
 
 /verzeichnis/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Testadressen nicht indexieren (workers.dev und Vorschau-Versionen)
+https://:worker.:account.workers.dev/*
+  X-Robots-Tag: noindex, nofollow

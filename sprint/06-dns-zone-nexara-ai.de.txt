@@ -1,0 +1,21 @@
+; DNS-Zone nexara-ai.de für den Import in Cloudflare (DNS → Einträge → Importieren)
+; Stand: öffentliche Abfrage am 25.11.2026. Mail läuft über Google Workspace.
+; Beim Import "Importierte DNS-Einträge über Proxy leiten" AUS lassen.
+$ORIGIN nexara-ai.de.
+$TTL 3600
+
+; Google Workspace (Mail): MX, SPF, DKIM
+@                  3600  IN  MX   1 smtp.google.com.
+@                  3600  IN  TXT  "v=spf1 include:_spf.google.com ~all"
+google._domainkey  3600  IN  TXT  "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApvIaTM0KN60R8/c4qR/JgJPP5eV09vw8paG9jbW6VLQw5kH3yrh1XOYpOVVNBLgV6L/0QhmvwHYXkbjoV9v0gQ/WKWllQoNz0RjO8jJ356p+o1W9GTflNARvVYiS/wAvpVBKqBJwLk8TjIIJgPQMLCpVpmcO+cIm+cOPjGHIjgIeY1SQyk1CwmDHZgx+" "ayjjXerEBZRbid/J0L+15mFsXO57Wy0M3rZZBjD+pbqil6jBzPvvnJbhsYvQy8mTxTU2Pn39JdG5pNJnh2AQKIfFa9/lPo03TQ0aWGWEjes67U3eJV0kRKikKP60hNbN1456+wyd7jeS/wAAU3V2kyBHmQIDAQAB"
+
+; Neu: DMARC (nur beobachten, nichts wird abgewiesen)
+_dmarc             3600  IN  TXT  "v=DMARC1; p=none"
+
+; Website: zeigt bis zum Domain-Schritt weiter auf Vercel, damit nichts ausfällt.
+; npm run cf:domain ersetzt diesen Eintrag später durch den Worker.
+@                  300   IN  A    216.198.79.1
+
+; www: Platzhalter hinter dem Proxy, die Weiterleitungsregel schickt alles auf nexara-ai.de.
+; Nach dem Import diesen Eintrag in Cloudflare auf "Proxied" (orange Wolke) stellen.
+www                300   IN  AAAA 100::

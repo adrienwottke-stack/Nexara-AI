@@ -93,7 +93,8 @@ export async function eintragen(req: Request, env: Env, ctx: Ctx, url: URL): Pro
      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'unbestaetigt', 'betrieb', ?, ?, ?, ?, ?)`
   ).bind(slug, v.name, v.kategorie, v.gemeinde, v.ortsteil || null, v.strasse || null, v.plz || null, v.kurz, v.beschreibung, v.leistungen || null, v.telefon || null, v.email_oeffentlich || null, v.website || null, v.oeffnungszeiten || null, v.kontakt_name, v.kontakt_email, v.marketing ? 1 : 0, claim ? `claim:${claim.slug}` : null, token, hash, ts, ts).run()
 
-  const link = `${env.SITE_ORIGIN}/verzeichnis/bestaetigen/?t=${token}`
+  // Links in Mails zeigen auf die Adresse, über die eingetragen wurde (auch workers.dev im Test).
+  const link = `${url.origin}/verzeichnis/bestaetigen/?t=${token}`
   ctx.waitUntil(
     notify(env, {
       mail: {
@@ -136,7 +137,7 @@ export async function moderation(req: Request, env: Env, ctx: Ctx): Promise<Resp
     }
   }
   await env.DB.prepare(`UPDATE eintraege SET status = 'aktiv', freigegeben_am = ?, aktualisiert_am = ? WHERE id = ?`).bind(ts, ts, id).run()
-  const pageUrl = `${env.SITE_ORIGIN}${entryPath({ slug })}`
+  const pageUrl = `${new URL(req.url).origin}${entryPath({ slug })}`
   ctx.waitUntil(
     notify(env, {
       mail: {

@@ -93,8 +93,18 @@ async function hmacHex(secret: string, msg: string): Promise<string> {
   const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(msg))
   return [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, '0')).join('')
 }
-export const sign = (env: Env, msg: string) => hmacHex(env.ADMIN_SECRET || 'dev-secret', msg)
+// Ohne ADMIN_SECRET gibt es nur lokal (DEV_MODE) einen festen Testschlüssel. Live schlagen
+// Signaturen dann fehl, statt mit einem öffentlich bekannten Schlüssel zu arbeiten.
+let isolateKey = ''
+function secretOf(env: Env, strict: boolean): string {
+  if (env.ADMIN_SECRET) return env.ADMIN_SECRET
+  if (env.DEV_MODE === '1') return 'dev-secret'
+  if (strict) throw new Error('ADMIN_SECRET fehlt (npm run cf:setup)')
+  return (isolateKey ||= randomToken(32))
+}
+export const sign = (env: Env, msg: string) => hmacHex(secretOf(env, true), msg)
 export async function verify(env: Env, msg: string, sig: string): Promise<boolean> {
+  if (!env.ADMIN_SECRET && env.DEV_MODE !== '1') return false
   const expected = await sign(env, msg)
   if (expected.length !== sig.length) return false
   let diff = 0
@@ -105,7 +115,7 @@ export async function verify(env: Env, msg: string, sig: string): Promise<boolea
 export async function ipHash(env: Env, req: Request): Promise<string> {
   const ip = req.headers.get('cf-connecting-ip') || 'local'
   const day = new Date().toISOString().slice(0, 10)
-  return (await hmacHex(env.ADMIN_SECRET || 'dev-secret', `${ip}|${day}`)).slice(0, 32)
+  return (await hmacHex(secretOf(env, false), `${ip}|${day}`)).slice(0, 32)
 }
 
 export type Mail = { to: string; subject: string; text: string; replyTo?: string }

@@ -49,10 +49,10 @@ Kontakte aus Netzwerk, Telefon und Briefen trägst du selbst als neue Zeile ein 
 
 ## 4. n8n-Workflow einrichten (20 Min)
 1. n8n → Workflows → Import → `n8n-mailer-workflow.json`.
-2. Knoten **Webhook**: Credential "Header Auth" anlegen, Name `X-Nexara-Secret`, Wert: ein langer Zufallstext (z. B. in PowerShell: `[guid]::NewGuid().ToString() + [guid]::NewGuid().ToString()`). Den gleichen Wert später als Cloudflare-Secret `MAIL_WEBHOOK_SECRET` setzen.
+2. Knoten **Webhook**: Credential "Header Auth" anlegen, Name `X-Nexara-Secret`, Wert: der Text, den `npm run cf:setup` am Ende anzeigt (er ist dort schon als Cloudflare-Secret `MAIL_WEBHOOK_SECRET` hinterlegt).
 3. Knoten **Gmail senden**: Gmail-Credential mit deinem Workspace-Konto verbinden.
 4. Knoten **In Tabelle eintragen**: Google-Sheets-Credential verbinden, Platzhalter `HIER_URL_DER_TABELLE_NEXARA_PIPELINE` durch die Tabellen-URL ersetzen.
-5. Workflow aktivieren, **Production-URL** des Webhooks kopieren → Cloudflare-Secret `MAIL_WEBHOOK_URL` (siehe `../06-cloudflare-umzug.md`).
+5. Workflow aktivieren, **Production-URL** des Webhooks kopieren → `npm run cf:setup` erneut ausführen und einfügen (siehe `../06-cloudflare-umzug.md`, Schritt 4).
 6. Test nach dem Deploy: Formular auf `/automatisierung/` absenden → Mail bei dir + Zeile im Blatt "Pipeline".
 
 Falls n8n mal ausfällt: Nichts geht verloren. `npm run db:anfragen` zeigt die letzten 20 Anfragen aus der Datenbank, `npm run db:wartend` offene Verzeichnis-Einträge.

@@ -23,8 +23,8 @@
 
 | # | Was | Anleitung | Zeit (Schätzung) |
 |---|---|---|---|
-| 1 | Cloudflare: Konto, Zone, Datenbank, Secrets, Test-Deploy auf workers.dev (Schritte 1-3). Die Mail-Secrets aus n8n gehören dazu (Launchplan Tag 2). | [06-cloudflare-umzug.md](../06-cloudflare-umzug.md) | 35 Min |
-| 2 | Nameserver beim Registrar umstellen (Schritt 5). Früh, weil es dauern kann. | [06-cloudflare-umzug.md](../06-cloudflare-umzug.md) | 5 Min |
+| 1 | Cloudflare: Konto und Domain mit der vorbereiteten Zonendatei (Schritt 1), sofort danach Nameserver beim Registrar umstellen (Schritt 2), weil es dauern kann. Die Seite läuft währenddessen weiter. | [06-cloudflare-umzug.md](../06-cloudflare-umzug.md) | 15 Min |
+| 2 | `npm run cf:setup` (Datenbank, Geheimnisse, Test-Deploy auf workers.dev), dann n8n-Mailer verbinden und testen (Schritte 3-4, Launchplan Tag 2). Nach der Aktiv-Mail von Cloudflare: `npm run cf:domain` und Schritt 6. | [06-cloudflare-umzug.md](../06-cloudflare-umzug.md) | 50 Min |
 | 3 | Anthropic-API-Key: Konto auf console.anthropic.com, Zahlungsdaten selbst eintragen, **monatliches Ausgabenlimit setzen**, Key anlegen. Dann `npx wrangler secret put ANTHROPIC_API_KEY` und lokal eine Zeile `ANTHROPIC_API_KEY=...` in `.dev.vars`. | unten | 15 Min |
 | 4 | Turnstile: Cloudflare-Dashboard → Turnstile → Widget anlegen für `nexara-ai.de`, die workers.dev-Adresse und `localhost`. Den **Site-Key** (öffentlich) gibst du mir, den **Secret Key** setzt du mit `npx wrangler secret put TURNSTILE_SECRET`. | unten | 10 Min |
 | 5 | 3 Beispielfotos machen: Wasserfleck an einer Decke, gesprungene Scheibe, Schimmel in einer Ecke (oder Entscheidung 4 = KI-Bilder) | | 10 Min |

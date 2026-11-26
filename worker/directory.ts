@@ -326,7 +326,7 @@ export async function confirm(env: Env, url: URL): Promise<Response> {
   const ts = now()
   await env.DB.prepare(`UPDATE eintraege SET status = 'wartend', token = NULL, bestaetigt_am = ?, aktualisiert_am = ? WHERE id = ?`).bind(ts, ts, e.id).run()
   const sig = await sign(env, `moderation:${e.id}`)
-  const link = `${env.SITE_ORIGIN}/verzeichnis/moderation/?id=${e.id}&sig=${sig}`
+  const link = `${url.origin}/verzeichnis/moderation/?id=${e.id}&sig=${sig}`
   await notify(env, {
     mail: {
       to: env.ADMIN_EMAIL,
