@@ -17,7 +17,7 @@
       "binding": "DB",
       "database_name": "nexara",
       // Wird von `npm run cf:setup` eingetragen.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "e4ad17ba-b5fa-4f73-b862-2d9a56f8e105",
       "migrations_dir": "migrations"
     }
   ],
@@ -31,5 +31,6 @@
   // MAIL_WEBHOOK_SECRET   gleicher Wert wie im n8n-Header "X-Nexara-Secret"
   // Täglich 3 Uhr UTC: Aufräumen nach Löschfristen (siehe worker/index.ts, scheduled)
   "triggers": { "crons": ["0 3 * * *"] },
+  "routes": [{ "pattern": "nexara-ai.de", "custom_domain": true }],
   "observability": { "enabled": true }
 }
